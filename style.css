@@ -1,0 +1,377 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+:root {
+  --lead: #212121;
+  --gold-finger: #f2bd12;
+  --eye-ball: #FFFDF7;
+  --hint-yellow: #FCF1CC;
+  --pure-white: #fff;
+  --soft-gray: #f8f8f8;
+}
+
+body {
+  background: var(--eye-ball);
+  color: var(--lead);
+  line-height: 1.6;
+}
+
+/*THIS IS BASIC ELEMENTS */
+a {
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: var(--lead);
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: var(--gold-finger);
+}
+
+li {
+  list-style: none;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 2rem;
+}
+
+.gap-3 {
+  gap: 3rem;
+}
+
+.gap-4 {
+  gap: 4rem;
+}
+
+.wrapper {
+  max-width: 1400px;
+  margin: auto;
+  padding-inline: 1.5rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.p-top {
+  padding-top: 10rem;
+}
+
+.text-content {
+  text-align: center;
+}
+
+.mt-4 {
+  margin-top: 4rem;
+}
+
+/*THIS IS HEADINGS */
+h5 {
+  font-size: 1.2rem;
+  letter-spacing: .2rem;
+  color: var(--gold-finger);
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 3.2rem;
+  text-transform: capitalize;
+  color: var(--lead);
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: var(--lead);
+  transition: color 0.3s ease-in-out;
+}
+
+h3:hover {
+  color: var(--gold-finger);
+}
+
+.service-card {
+  text-align: center;
+  background: var(--pure-white);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 6px 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: rgba(0, 0, 0, 0.15) 0 12px 20px;
+}
+
+.service-card h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.service-card p {
+  font-size: 1rem;
+  color: gray;
+}
+
+/*THIS IS HEADER */
+.navbar {
+  min-height: 14vh;
+  padding: 1rem 0;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--gold-finger);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  background: var(--gold-finger);
+  border-radius: 1rem;
+  font-size: 1.1rem;
+  color: var(--pure-white);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 1px;
+  transition: 0.3s ease-in-out;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: var(--lead);
+  transform: translateY(-2px);
+}
+
+.cart-icon {
+  color: var(--lead);
+  font-size: 1.3rem;
+  position: relative;
+}
+
+.cart-icon .cart-value {
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  font-size: 0.85rem;
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 100vw;
+  background: var(--gold-finger);
+  color: var(--lead);
+  text-align: center;
+  line-height: 20px;
+}
+
+.desktop-action .hamburger {
+  font-size: 1.5rem;
+  display: none;
+  cursor: pointer;
+}
+
+
+
+/*THIS IS HERO SECTION */
+.hero-section {
+  min-height: calc(100vh - 14vh);
+  margin: 50px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+.hero-section .content {
+    text-align: left;           
+    max-width: 600px;           
+    transform: translateX(100px); 
+    position: relative;
+    z-index: 2;
+}
+.content,
+.image-container,
+.service-card {
+  flex: 1;
+  flex-basis: 300px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 1rem;
+  /* box-shadow: rgba(0,0,0,0.1) 0 8px 16px; */
+}
+
+h1 {
+  font-size: 4.5rem;
+  color: var(--lead);
+  line-height: 1.2;
+}
+
+h1 span {
+  color: var(--gold-finger);
+}
+
+p {
+  font-size: 1.1rem;
+  color: gray;
+  line-height: 1.8rem;
+  font-weight: 400;
+}
+
+.para {
+  margin-block: 2rem;
+  max-width: 550px;
+}
+
+.content .flex {
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+
+
+.hero-section .image-container {
+    position: relative;
+    transform: translateX(380px); 
+    transition: transform 0.5s ease; 
+}
+
+.hero-section .image-container img {
+    width: 1000px; 
+    height: auto;
+    display: block;
+    border-radius: 1rem; 
+}
+
+
+/*THIS IS SOCIAL ICONS */
+.social-icon {
+  background: var(--hint-yellow);
+  width: 3rem;
+  aspect-ratio: 1;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 1px;
+  transition: 0.3s ease-in-out;
+  flex-shrink: 0;
+}
+
+.social-icon:hover {
+  background: var(--gold-finger);
+  color: var(--pure-white);
+  transform: rotate(10deg) scale(1.1);
+}
+
+/*THIS IS SERVICES SECTION */
+.services {
+  padding: 6rem 1.5rem;
+  background: var(--soft-gray);
+  text-align: center;
+}
+
+.services h2 {
+  margin-bottom: 2rem;
+}
+
+.service-card .image-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.service-card .image-container img {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+}
+
+/*THIS IS MOBILE MENU */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20rem;
+  padding: 2rem;
+  background: var(--pure-white);
+  border: 0.1rem solid var(--gold-finger);
+  border-radius: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 8px 8px 8px,
+    rgba(0, 0, 0, 0.05) 8px 8px 8px inset;
+  transition: all 0.5s ease-in-out;
+  z-index: 999;
+}
+
+.mobile-menu.mobile-menu-active {
+  display: flex;
+}
+
+/*THIS IS MEDIA QUERIES */
+@media screen and (max-width: 780px) {
+  .navlist,
+  .desktop-action .btn {
+    display: none;
+  }
+
+  .desktop-action .hamburger {
+    display: block;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .content {
+    padding-top: 3rem;
+    text-align: center;
+  }
+
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .image-container {
+    margin-top: 2rem;
+    justify-content: center;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  .service-card {
+    margin-bottom: 2rem;
+  }
+}
