@@ -10,249 +10,157 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
-
-
-
-
-
-
 </head>
-
-
 
 <body>
 
-    <!--THIS IS the HEADER PART -->
+    <!-- HEADER -->
     <header>
-        <nav class="navbar flex between wrapper">
-            <a href="#" class="logo">Foddie.</a>
+        <nav class="navbar">
+            <a href="#" class="logo">Foodie.</a>
 
-            <!-- THIS IS DESKTOP MENU -->
-            <ul class="navlist flex gap-3">
-                <li>
-                    <a href="#">Home</a>
-                </li>
-                <li>
-                    <a href="#">Menu</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">About us</a>
-                </li>
-                <li>
-                    <a href="#">Contact us</a>
-                </li>
+            <!-- DESKTOP MENU -->
+            <ul class="navlist">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Contact us</a></li>
             </ul>
-            <div class="desktop-action flex gap-2 ">
+
+            <div class="desktop-action">
                 <a href="#" class="cart-icon">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span class="cart-value">0</span>
-
                 </a>
-                <a href="#" class="btn">
-                    Sign in
-                    &nbsp;
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                </a>
-                <a href="#" class="hamburger">
-                    <i class="fa-solid fa-bars"></i>
-                </a>
-
+                <a href="#" class="btn">Sign in <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                <a href="#" class="hamburger"><i class="fa-solid fa-bars"></i></a>
             </div>
-            <!-- MOBILE MENU -->
 
-            <ul class="mobile-menu">
-                <li>
-                    <a href="#">Home</a>
-                </li>
-                <li>
-                    <a href="#">Menu</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">About us</a>
-                </li>
-                <li>
-                    <a href="#">Contact us</a>
-                </li>
-                <li>
-                    </a>
-                    <a href="#" class="btn">
-                        Sign in
-                        &nbsp;
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    </a>
-                </li>
-            </ul>
-
+            
         </nav>
-
     </header>
 
-    <!-- SECTION PART -->
+    <!-- HERO SECTION -->
     <main>
-        <section>
-            <div class="hero-section flex wrapper gap-4">
-                <div class="content">
-                    <h1>
-                        Enjoy Your Delicious
-                        <span>Food</span>
-
-                    </h1>
-                    <p class="para">
-                        we will fill your tummy with Delicious<br>
-                        food with fast delivery
-                    </p>
-                    <div class="flex gap-2">
-                        <a href="#" class="btn">Order now</a>
-
-                        <a href="#" class="social-icon">
-                            <i class="fa-brands fa-x-twitter"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fa-brands fa-google-plus-g"></i>
-                        </a>
-
-                    </div>
+        <section class="hero-section">
+            <div class="content">
+                <h1>Enjoy Your Delicious <span>Food</span></h1>
+                <p class="para">We will fill your tummy with delicious food with fast delivery.</p>
+                <div class="flex">
+                    <a href="#" class="btn">Order now</a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-google-plus-g"></i></a>
                 </div>
-                <div class="image-container">
-                    <img src="asset/dddddd.jpg">
-                </div>
-
             </div>
-        </section>
-        <section>
-            <div class=" wrapper p-tap"> </div>
-            <div class="text-content">
-                <h5>Our Services</h5>
-                <h2>How does it <br>work?</h2>
-            </div>
-            <div class="flex text-content mt-4 gap-4">
-                <div class="service-card">
-                    <div class="image-container">
-                        <img src="asset/eeeeee.png">
-                    </div>
-                    <h3>Easy to order</h3>
-                    <p>You only need a few steps in ordering food.</p>
-                </div>
-                <div class="service-card">
-                    <div class="image-container">
-                        <img src="asset/Fast.png">
-                    </div>
-                    <h3>Fast delievery</h3>
-                    <p>Delivery that is always ontime even faster.</p>
-                </div>
-                <div class="service-card">
-                    <div class="image-container">
-                        <img src="asset/qqqqqq.png">
-                    </div>
-                    <h3>Best Quality</h3>
-                    <p>Not only fast for us in quality is also number one.</p>
-                </div>
+            <div class="image-container">
+                <img src="asset/dddddd.jpg" alt="Delicious Food">
             </div>
         </section>
 
-        <section>
-            <div class="wrapper p-top ">
+        <!-- SERVICES SECTION -->
+        <section class="services">
+            <div class="wrapper">
                 <div class="text-content">
-                    <h5>Our Menu</h5>
+                    <h3>Our Services</h3>
+                    <h2>How does it <br>work?</h2>
+                </div>
+                <div class="flex service-cards">
+                    <div class="service-card">
+                        <img src="asset/eeeeee.png" alt="Easy to order">
+                        <h3>Easy to order</h3>
+                        <p>You only need a few steps in ordering food.</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="asset/Fast.png" alt="Fast delivery">
+                        <h3>Fast delivery</h3>
+                        <p>Delivery that is always on time, even faster.</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="asset/qqqqqq.png" alt="Best quality">
+                        <h3>Best Quality</h3>
+                        <p>Not only fast, but our quality is also number one.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENU SECTION -->
+        <section class="menu">
+            <div class="wrapper">
+                <div class="text-content">
+                    <h3>Our Menu</h3>
                     <h2>The Most Popular</h2>
                 </div>
-
-                <div class="card-list text-content flex mt-4 gap-2">
-                    <!-- <div class="order-card">
-                        <div class="card-image">
-                            <img src="asset/bbbbbb.jpg">
-                        </div>
+                <div class="card-list">
+                    <div class="order-card">
+                        <img src="asset/bbbbbb.jpg" alt="Burger">
                         <h4>Burger</h4>
                         <h4 class="price">$100</h4>
                         <a href="#" class="btn">Add to Cart</a>
                     </div>
-                      <div class="order-card">
-                        <div class="card-image">
-                            <img src="asset/Pizza.jpg">
-                        </div>
+                    <div class="order-card">
+                        <img src="asset/Pizza.jpg" alt="Pizza">
                         <h4>Pizza</h4>
                         <h4 class="price">$150</h4>
                         <a href="#" class="btn">Add to Cart</a>
                     </div>
-                      <div class="order-card">
-                        <div class="card-image">
-                            <img src="asset/biri.jpg">
-                        </div>
+                    <div class="order-card">
+                        <img src="asset/biri.jpg" alt="Biriyani">
                         <h4>Biriyani</h4>
                         <h4 class="price">$90</h4>
                         <a href="#" class="btn">Add to Cart</a>
                     </div>
-                      <div class="order-card">
-                        <div class="card-image">
-                            <img src="asset/meals.jpg">
-                        </div>
+                    <div class="order-card">
+                        <img src="asset/meals.jpg" alt="Meals">
                         <h4>Meals</h4>
                         <h4 class="price">$80</h4>
                         <a href="#" class="btn">Add to Cart</a>
-                    </div> -->
-
-
-
+                    </div>
                 </div>
-
             </div>
         </section>
 
-        <section>
-            <div class="wrapper p-top flex gap-3">
-                <div class="image-container">
-                    <img src="asset/dddddd.jpg">
-
-                </div>
+        <!-- REVIEWS SECTION -->
+        <section class="reviews">
+            <div class="wrapper">
                 <div class="text-content">
                     <h5>Our reviews</h5>
                     <h2>What they say?</h2>
-
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">Slide 1</div>
-                            <div class="swiper-slide">Slide 2</div>
-                            <div class="swiper-slide">Slide 3</div>
-                            <!-- <div class="swiper-slide">Slide 4</div>
-                            <div class="swiper-slide">Slide 5</div>
-                            <div class="swiper-slide">Slide 6</div>
-                            <div class="swiper-slide">Slide 7</div>
-                            <div class="swiper-slide">Slide 8</div>
-                            <div class="swiper-slide">Slide 9</div> -->
-                        </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-
                 </div>
-
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="flex review-card">
+                                <div class="profile">
+                                    <img src="asset/user.jpg" alt="Guy Hawkins">
+                                </div>
+                                <div>
+                                    <h4>Guy Hawkins</h4>
+                                    <div class="stars">
+                                        <i class="fa-solid fa-star star"></i>
+                                        <i class="fa-solid fa-star star"></i>
+                                        <i class="fa-solid fa-star star"></i>
+                                        <i class="fa-solid fa-star star"></i>
+                                        <i class="fa-solid fa-star-half-stroke star"></i>
+                                    </div>
+                                    <p>Foddie is the best. Besides the many delicious meals, the service is very good, especially very fast delivery. I highly recommend Foddie to you.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
             </div>
         </section>
 
-
-
     </main>
 
-    <!-- FOOTER PART -->
-    <footer>
-
-    </footer>
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-
-
 </body>
 
 </html>

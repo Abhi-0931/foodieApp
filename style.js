@@ -1,12 +1,6 @@
 /* GOOGLE FONT IMPORT */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 
-
-
-:root {
-    --gold-finger: #f2bd12; /* your gold color */
-}
-
 /* RESET & GLOBAL STYLES */
 * {
     margin: 0;
@@ -100,34 +94,15 @@ header {
     justify-content: space-between;
     padding: 50px;
     gap: 50px;
-    padding-left: 12%;
 }
 
 .hero-section .content {
     max-width: 500px;
-    
-    
 }
-.hero-section .image-container {
-    width: 50%;      
-    max-width: 600px; 
-    height: auto;
-}
-
-.hero-section .image-container img {
-    width: 100%;    
-    height: auto;    
-    display: block;
-    border-radius: 10px; 
-    margin-left: -100px;
-}
-
 
 .hero-section h1 {
     font-size: 48px;
     line-height: 1.2;
-    
-    
 }
 
 .hero-section h1 span {
@@ -154,20 +129,7 @@ header {
 
 .hero-section .social-icon {
     font-size: 20px;
-    color: #212121;                
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;                     
-    height: 40px;
-    border-radius: 50%;              
-    background: var(--gold-finger);             
-    transition: all 0.3s ease;       
-}
-.hero-section .social-icon:hover {
-    background: var(--gold-finger);  
-    color: #fff;                    
-    transform: scale(1.1);          
+    color: #212121;
 }
 
 /* SERVICES */
@@ -176,17 +138,14 @@ header {
     background: #f9f9f9;
 }
 
-.services .text-content h3 {
+.services .text-content h5 {
     color: #f2bd12;
     font-weight: 600;
-    text-align: center;
-     
 }
 
 .services .text-content h2 {
     font-size: 32px;
     margin: 10px 0 40px;
-    text-align: center;
 }
 
 .service-cards {
@@ -219,17 +178,9 @@ header {
     color: #555;
 }
 
-
 /* MENU */
 .menu {
     padding: 80px 50px;
-}
-.menu .text-content h3{
-    color: #f2bd12;
-    text-align: center;
-}
-.menu .text-content h2{
-    text-align: center;
 }
 
 .card-list {
@@ -257,7 +208,6 @@ header {
 .order-card h4 {
     font-size: 18px;
     margin-bottom: 10px;
-    
 }
 
 .order-card .price {
