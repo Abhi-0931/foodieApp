@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foodie - Menu</title>
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">Foodie.</a>
+
+    <!-- Desktop Menu -->
+    <ul class="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html" class="active">Menu</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="about.html">About us</a></li>
+      <li><a href="contact.html">Contact us</a></li>
+    </ul>
+
+    <div class="desktop-action">
+      <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-value">0</span>
+      </a>
+      <a href="sign.html" class="btn">Sign in <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+      <a href="#" class="hamburger"><i class="fa-solid fa-bars"></i></a>
+    </div>
+  </nav>
+</header>
+
+<!-- MENU SECTION -->
+ 
+<section class="section menu-section">
+  <div class="text-content">
+    <h3>Our Menu</h3>
+    <h2>Delicious Dishes to Satisfy Your Taste</h2>
+    <p>Explore our wide range of delicious dishes crafted with fresh ingredients and served with love.</p>
+  </div>
+
+  <!-- Starters -->
+  <div class="menu-category">
+    <h3>Starters</h3>
+    <div class="cards">
+      <div class="card">
+        <img src="asset/Bruschetta.jpg" alt="Bruschetta">
+        <h4>Bruschetta</h4>
+        <p>Toasted bread topped with fresh tomatoes, basil, and olive oil.</p>
+        <p class="price">$50</p>
+        <button class="btn add-to-cart" data-name="Bruschetta" data-price="50">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Garlic Bread.jpg" alt="Garlic Bread">
+        <h4>Garlic Bread</h4>
+        <p>Golden-baked bread with garlic butter and herbs.</p>
+        <p class="price">$40</p>
+        <button class="btn add-to-cart" data-name="Garlic Bread" data-price="40">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Veg Spring Rolls.jpg" alt="Spring Rolls">
+        <h4>Veg Spring Rolls</h4>
+        <p>Crispy rolls filled with fresh vegetables and sweet chili sauce.</p>
+        <p class="price">$60</p>
+        <button class="btn add-to-cart" data-name="Veg Spring Rolls" data-price="60">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Veg Spring Rolls.jpg" alt="Spring Rolls">
+        <h4>Veg Spring Rolls</h4>
+        <p>Crispy rolls filled with fresh vegetables and sweet chili sauce.</p>
+        <p class="price">$60</p>
+        <button class="btn add-to-cart" data-name="Veg Spring Rolls" data-price="60">Add to Cart</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Main Course -->
+  <div class="menu-category">
+    <h3>Main Course</h3>
+    <div class="cards">
+      <div class="card">
+        <img src="asset/Pizza Margherita.jpg" alt="Pizza">
+        <h4>Pizza Margherita</h4>
+        <p>Classic Italian pizza with fresh tomatoes, basil, and mozzarella cheese.</p>
+        <p class="price">$120</p>
+        <button class="btn add-to-cart" data-name="Pizza Margherita" data-price="120">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Grilled Beef Burger.webp" alt="Burger">
+        <h4>Grilled Beef Burger</h4>
+        <p>Juicy beef patty with lettuce, tomato, cheese, and house sauce.</p>
+        <p class="price">$150</p>
+        <button class="btn add-to-cart" data-name="Grilled Beef Burger" data-price="150">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Pasta Alfredo.webp" alt="Pasta">
+        <h4>Pasta Alfredo</h4>
+        <p>Creamy fettuccine pasta with parmesan and herbs.</p>
+        <p class="price">$100</p>
+        <button class="btn add-to-cart" data-name="Pasta Alfredo" data-price="100">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Grilled Chicken.jpg" alt="Grilled Chicken">
+        <h4>Grilled Chicken</h4>
+        <p>Marinated chicken grilled with rosemary and lemon.</p>
+        <p class="price">$140</p>
+        <button class="btn add-to-cart" data-name="Grilled Chicken" data-price="140">Add to Cart</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Desserts -->
+  <div class="menu-category">
+    <h3>Desserts</h3>
+    <div class="cards">
+      <div class="card">
+        <img src="asset/Chocolate Cake.jpg" alt="Chocolate Cake">
+        <h4>Chocolate Cake</h4>
+        <p>Rich and moist chocolate cake topped with creamy frosting.</p>
+        <p class="price">$70</p>
+        <button class="btn add-to-cart" data-name="Chocolate Cake" data-price="70">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Ice Cream.jpg" alt="Ice Cream">
+        <h4>Vanilla Ice Cream</h4>
+        <p>Creamy vanilla ice cream served with chocolate syrup.</p>
+        <p class="price">$50</p>
+        <button class="btn add-to-cart" data-name="Vanilla Ice Cream" data-price="50">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Cheesecake.jpg" alt="Cheesecake">
+        <h4>Blueberry Cheesecake</h4>
+        <p>Classic cheesecake topped with fresh blueberry sauce.</p>
+        <p class="price">$90</p>
+        <button class="btn add-to-cart" data-name="Blueberry Cheesecake" data-price="90">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Beverages -->
+  <div class="menu-category">
+    <h3>Beverages</h3>
+    <div class="cards">
+      <div class="card">
+        <img src="asset/Coffee.jpg" alt="Coffee">
+        <h4>Espresso Coffee</h4>
+        <p>Freshly brewed strong coffee to energize your day.</p>
+        <p class="price">$30</p>
+        <button class="btn add-to-cart" data-name="Espresso Coffee" data-price="30">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Mango Smoothie.jpg" alt="Smoothie">
+        <h4>Mango Smoothie</h4>
+        <p>Refreshing mango smoothie made with fresh fruits.</p>
+        <p class="price">$60</p>
+        <button class="btn add-to-cart" data-name="Mango Smoothie" data-price="60">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="asset/Mojito.jpg" alt="Mocktail">
+        <h4>Virgin Mojito</h4>
+        <p>Minty and refreshing non-alcoholic cocktail.</p>
+        <p class="price">$80</p>
+        <button class="btn add-to-cart" data-name="Virgin Mojito" data-price="80">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 Foodie. All Rights Reserved.</p>
+</footer>
+
+
+
+<!-- CART SCRIPT -->
+<script src="cart.js"></script>
+
+
+
+</body>
+</html>
