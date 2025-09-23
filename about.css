@@ -1,7 +1,7 @@
-/* ================= GOOGLE FONT ================= */
+/* THIS IS GOOGLE FONT  */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* ================= VARIABLES ================= */
+/* THIS IS VARIABLES  */
 :root {
   --gold: #f2bd12;
   --dark: #212121;
@@ -12,7 +12,7 @@
   --gradient: linear-gradient(135deg, #f2bd12 0%, #ff6f00 100%);
 }
 
-/* ================= GLOBAL RESET ================= */
+/* THIS IS GLOBAL RESET  */
 * {
   margin: 0;
   padding: 0;
@@ -27,7 +27,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ================= NAVBAR ================= */
+/* THIS IS NAVBAR  */
 header {
   background: var(--gradient);
   padding: 15px 40px;
@@ -115,7 +115,7 @@ header {
   cursor: pointer;
 }
 
-/* ================= HERO ABOUT ================= */
+/* THIS IS HERO ABOUT  */
 .hero-about {
   background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('about-hero.jpg') center/cover no-repeat;
   padding: 120px 50px;
@@ -136,7 +136,7 @@ header {
   animation: fadeInUp 1.2s ease forwards;
 }
 
-/* ================= TEXT CONTENT SECTIONS ================= */
+/* THIS IS TEXT CONTENT SECTIONS */
 .text-content {
   text-align: center;
   margin-bottom: 40px;
@@ -155,7 +155,7 @@ header {
   margin: auto;
 }
 
-/* ================= MILESTONES ================= */
+/* THIS IS MILESTONES  */
 .milestones-container {
   display: flex;
   justify-content: center;
@@ -188,7 +188,7 @@ header {
   color: var(--dark);
 }
 
-/* ================= TEAM ================= */
+/*THIS IS TEAM  */
 .team-container {
   display: flex;
   justify-content: center;
@@ -253,7 +253,7 @@ header {
   transform: scale(1.2);
 }
 
-/* ================= CORE VALUES ================= */
+/* THIS IS CORE VALUES  */
 .values-container {
   display: flex;
   justify-content: center;
@@ -290,7 +290,7 @@ header {
   color: var(--text);
 }
 
-/* ================= TESTIMONIALS ================= */
+/* THIS IS TESTIMONIALS  */
 .testimonial-container {
   display: flex;
   justify-content: center;
@@ -322,7 +322,7 @@ header {
   font-weight: 600;
 }
 
-/* ================= CALL TO ACTION ================= */
+/* THIS IS CALL TO ACTION  */
 .cta {
   background: var(--gold);
   color: var(--dark);
@@ -363,7 +363,7 @@ header {
   transform: scale(1.05);
 }
 
-/* ================= FOOTER ================= */
+/* THIS IS FOOTER  */
 footer {
   background: var(--dark);
   color: var(--light);
@@ -376,13 +376,13 @@ footer p:hover {
   color: var(--gold);
 }
 
-/* ================= ANIMATIONS ================= */
+/* THIS IS ANIMATIONS  */
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* ================= RESPONSIVE ================= */
+/* THIS IS RESPONSIVE  */
 @media (max-width: 992px) {
   .navlist { display: none; }
 }

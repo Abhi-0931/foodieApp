@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,13 @@
   <link rel="stylesheet" href="cart.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
 
   <!-- HEADER -->
   <header>
     <nav class="navbar">
       <a href="index.html" class="logo">Foodie.</a>
-
-      <!-- DESKTOP MENU -->
       <ul class="navlist">
         <li><a href="index.html">Home</a></li>
         <li><a href="menu.html">Menu</a></li>
@@ -22,14 +22,12 @@
         <li><a href="about.html">About us</a></li>
         <li><a href="contact.html">Contact us</a></li>
       </ul>
-
       <div class="desktop-action">
         <a href="cart.html" class="cart-icon">
           <i class="fa-solid fa-bag-shopping"></i>
           <span class="cart-value">0</span>
         </a>
         <a href="sign.html" class="btn">Sign in <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-        <a href="#" class="hamburger"><i class="fa-solid fa-bars"></i></a>
       </div>
     </nav>
   </header>
@@ -39,36 +37,105 @@
     <h2>Your Cart</h2>
     <div id="cart-items"></div>
     <h3 id="cart-total"></h3>
+
+    <!-- DELIVERY BOX -->
+    <div class="delivery-box">
+      <h3>Select Delivery Address</h3>
+      <select id="address" onchange="checkNewAddress(this)">
+        <!-- Will load dynamically -->
+      </select>
+    </div>
+
+    <!-- COUPON BOX -->
+    <div class="coupon-box">
+      <h3>Apply Coupon</h3>
+      <button onclick="openCouponModal()">View Available Coupons</button>
+      <input type="text" id="coupon" placeholder="Enter coupon code manually">
+      <button onclick="applyCoupon()">Apply</button>
+      <p id="coupon-message"></p>
+    </div>
+
+    <!-- FINAL BILL -->
+    <div class="final-bill">
+      <p id="subtotal">Subtotal: $0</p>
+      <p id="delivery-charge">Delivery: $0</p>
+      <p id="discount">Discount: $0</p>
+      <h3 id="final-total">Final Total: $0</h3>
+    </div>
   </section>
 
+  <!-- Coupon Modal -->
+  <div id="couponModal" class="modal">
+    <div class="modal-content">
+      <h3>Available Coupons</h3>
+      <div id="coupon-list"></div>
+      <button onclick="openCouponModal()">Show Coupons</button>
+
+    </div>
+  </div>
+
+ <!-- PAYMENT METHODS -->
+<div class="payment-box">
+  <h3>Select Payment Method</h3>
+  <div class="payment-options">
+    <label>
+      <input type="radio" name="payment" value="card" checked onchange="showSubMethods(this.value)">
+      💳 Credit/Debit Card
+    </label>
+    <label>
+      <input type="radio" name="payment" value="upi" onchange="showSubMethods(this.value)">
+      🏦 UPI
+    </label>
+    <label>
+      <input type="radio" name="payment" value="cod" onchange="showSubMethods(this.value)">
+      💵 Cash on Delivery
+    </label>
+  </div>
+
+  <!-- Sub-methods -->
+  <div id="sub-methods" style="margin-top:10px;"></div>
+</div>
+
+<!-- PLACE ORDER BUTTON -->
+<div class="place-order-box">
+  <button id="placeOrderBtn">Place Order</button>
+</div>
+
+
   <footer>
-    <p>© 2025 Foodie. All rights reserved. | <a href="#">Privacy Policy</a></p>
+    <p>© 2025 Foodie. All rights reserved.</p>
   </footer>
 
-   <script>
-    // Fetch cart from localStorage
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  <!-- SCRIPT -->
+  <script>
+    // -------- CART FUNCTIONS --------
+    function updateCartValue() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let cartValue = document.querySelector(".cart-value");
+      if (cartValue) {
+        let count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartValue.textContent = count;
+      }
+    }
 
     function renderCart() {
       const cartItems = document.getElementById("cart-items");
       const cartTotal = document.getElementById("cart-total");
-      const cartValue = document.querySelector(".cart-value");
 
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cartItems.innerHTML = "";
 
-      if(cart.length === 0) {
+      if (cart.length === 0) {
         cartItems.innerHTML = "<p>Your cart is empty.</p>";
         cartTotal.textContent = "";
-        cartValue.textContent = "0";
+        updateCartValue();
+        updateFinalBill();
         return;
       }
 
       let total = 0;
-      let count = 0;
       cart.forEach((item, index) => {
         total += item.price * item.quantity;
-        count += item.quantity;
-
         cartItems.innerHTML += `
           <div class="cart-item">
             <img src="${item.img}" alt="${item.name}">
@@ -86,17 +153,20 @@
       });
 
       cartTotal.textContent = "Total: $" + total.toFixed(2);
-      cartValue.textContent = count;
+      updateCartValue();
+      updateFinalBill();
     }
 
     function increaseQuantity(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart[index].quantity += 1;
       localStorage.setItem("cart", JSON.stringify(cart));
       renderCart();
     }
 
     function decreaseQuantity(index) {
-      if(cart[index].quantity > 1) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart[index].quantity > 1) {
         cart[index].quantity -= 1;
       } else {
         cart.splice(index, 1);
@@ -106,12 +176,186 @@
     }
 
     function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cart));
       renderCart();
     }
 
-    renderCart();
+    // -------- DELIVERY ADDRESS --------
+    function loadAddresses() {
+      let savedAddresses = JSON.parse(localStorage.getItem("addresses")) || [
+        "🏠 Home - Kurnool, Andhra Pradesh",
+        "🏢 Office - Hyderabad"
+      ];
+
+      const addressSelect = document.getElementById("address");
+      addressSelect.innerHTML = "";
+
+      savedAddresses.forEach(addr => {
+        let option = document.createElement("option");
+        option.value = addr;
+        option.textContent = addr;
+        addressSelect.appendChild(option);
+      });
+
+      let newOption = document.createElement("option");
+      newOption.value = "new";
+      newOption.textContent = "➕ Add New Address";
+      addressSelect.appendChild(newOption);
+    }
+
+    function checkNewAddress(select) {
+      if (select.value === "new") {
+        let newAddr = prompt("Enter your new address:");
+        if (newAddr && newAddr.trim() !== "") {
+          let savedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
+          savedAddresses.push(newAddr);
+          localStorage.setItem("addresses", JSON.stringify(savedAddresses));
+          loadAddresses();
+          document.getElementById("address").value = newAddr;
+        } else {
+          select.value = "";
+        }
+      }
+    }
+
+    // -------- COUPONS --------
+    const availableCoupons = [
+      { code: "FOODIE10", discount: 0.1, type: "percent", description: "Get 10% OFF" },
+      { code: "SAVE50", discount: 50, type: "flat", description: "Flat $50 OFF" },
+      { code: "FREESHIP", discount: 50, type: "delivery", description: "Free Delivery" }
+    ];
+
+    let appliedDiscount = 0;
+    let deliveryCharge = 50;
+    let appliedCoupon = null;
+
+    function openCouponModal() {
+      const couponList = document.getElementById("coupon-list");
+      couponList.innerHTML = "";
+      availableCoupons.forEach(c => {
+        let btn = document.createElement("button");
+        btn.className = "coupon-btn";
+        btn.textContent = `${c.code} - ${c.description}`;
+        btn.onclick = () => applyCouponFromList(c);
+        couponList.appendChild(btn);
+      });
+      document.getElementById("couponModal").style.display = "flex";
+    }
+
+    function closeCouponModal() {
+      document.getElementById("couponModal").style.display = "none";
+    }
+
+    function applyCouponFromList(coupon) {
+      appliedCoupon = coupon;
+      document.getElementById("coupon").value = coupon.code;
+      document.getElementById("coupon-message").textContent = "✅ Applied: " + coupon.code;
+      updateFinalBill();
+      closeCouponModal();
+    }
+
+    function applyCoupon() {
+      let code = document.getElementById("coupon").value.trim().toUpperCase();
+      let found = availableCoupons.find(c => c.code === code);
+
+      if (found) {
+        appliedCoupon = found;
+        document.getElementById("coupon-message").textContent = "✅ Applied: " + code;
+      } else {
+        appliedCoupon = null;
+        document.getElementById("coupon-message").textContent = "❌ Invalid coupon.";
+      }
+      updateFinalBill();
+    }
+
+    function updateFinalBill() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+      let discountValue = 0;
+      let delivery = cart.length > 0 ? deliveryCharge : 0;
+
+      if (appliedCoupon) {
+        if (appliedCoupon.type === "percent") {
+          discountValue = subtotal * appliedCoupon.discount;
+        } else if (appliedCoupon.type === "flat") {
+          discountValue = appliedCoupon.discount;
+        } else if (appliedCoupon.type === "delivery") {
+          delivery = 0;
+        }
+      }
+
+      let finalTotal = subtotal - discountValue + delivery;
+
+      document.getElementById("subtotal").textContent = "Subtotal: $" + subtotal.toFixed(2);
+      document.getElementById("delivery-charge").textContent = "Delivery: $" + delivery.toFixed(2);
+      document.getElementById("discount").textContent = "Discount: $" + discountValue.toFixed(2);
+      document.getElementById("final-total").textContent = "Final Total: $" + finalTotal.toFixed(2);
+    }
+
+    // -------- INIT --------
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCart();
+      loadAddresses();
+    });
+
+    // -------- PLACE ORDER --------
+    document.getElementById("placeOrderBtn").addEventListener("click", () => {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if(cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  let paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+  let subPaymentMethod = document.querySelector('input[name="subPayment"]:checked')?.value || "N/A";
+  let finalTotal = document.getElementById("final-total").textContent;
+
+  alert(`Order Placed!\nPayment Method: ${paymentMethod}\nSub-Method: ${subPaymentMethod}\n${finalTotal}`);
+
+  // Clear cart and reset
+  localStorage.removeItem("cart");
+  renderCart();
+  document.getElementById("coupon").value = "";
+  document.getElementById("coupon-message").textContent = "";
+  appliedCoupon = null;
+  updateFinalBill();
+  showSubMethods(paymentMethod); // reset sub-method
+});
+
+// -------- SUB PAYMENT METHODS --------
+function showSubMethods(method) {
+  const subMethods = document.getElementById("sub-methods");
+  subMethods.innerHTML = ""; // clear previous options
+
+  if (method === "upi") {
+    const upiApps = ["Google Pay", "PhonePe", "Paytm", "BHIM"];
+    upiApps.forEach(app => {
+      const label = document.createElement("label");
+      label.innerHTML = `<input type="radio" name="subPayment" value="${app}" checked> ${app}`;
+      subMethods.appendChild(label);
+    });
+  } else if (method === "card") {
+    const cards = ["Visa", "Mastercard", "Amex"];
+    cards.forEach(card => {
+      const label = document.createElement("label");
+      label.innerHTML = `<input type="radio" name="subPayment" value="${card}" checked> ${card}`;
+      subMethods.appendChild(label);
+    });
+  } 
+  // COD has no sub-methods
+}
+
+// Call initially to show card options by default
+document.addEventListener("DOMContentLoaded", () => {
+  showSubMethods("card");
+});
+
+
+
   </script>
 </body>
+
 </html>

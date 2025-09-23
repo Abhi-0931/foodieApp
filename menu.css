@@ -1,7 +1,7 @@
-/* ================= GOOGLE FONT ================= */
+/* THIS IS GOOGLE FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* ================= VARIABLES ================= */
+/* THIS IS VARIABLES  */
 :root {
   --gold: #f2bd12;
   --dark: #212121;
@@ -12,7 +12,7 @@
   --gradient: linear-gradient(135deg, #f2bd12 0%, #ff6f00 100%);
 }
 
-/* ================= GLOBAL RESET ================= */
+/* THIS IS GLOBAL RESET  */
 * {
   margin: 0;
   padding: 0;
@@ -27,7 +27,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ================= HEADER ================= */
+/* THIS IS HEADER  */
 header {
   background: var(--gradient);
   padding: 15px 40px;
@@ -116,7 +116,7 @@ header {
   color: var(--light);
 }
 
-/* ================= MENU HERO ================= */
+/*THIS IS MENU HERO  */
 .section {
   padding: 80px 8%;
 }
@@ -147,7 +147,7 @@ header {
   animation: fadeInUp 1.4s ease forwards;
 }
 
-/* ================= MENU CATEGORIES ================= */
+/*THIS IS MENU CATEGORIES  */
 .menu-category {
   margin-bottom: 50px;
 }
@@ -160,7 +160,7 @@ header {
   padding-left: 12px;
 }
 
-/* ================= MENU CARDS ================= */
+/*THIS IS  MENU CARDS  */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -229,7 +229,7 @@ header {
   box-shadow: 0 12px 30px var(--shadow);
 }
 
-/* ================= FOOTER ================= */
+/* THIS IS FOOTER  */
 footer {
   text-align: center;
   background: var(--dark);
@@ -238,7 +238,7 @@ footer {
   margin-top: 50px;
 }
 
-/* ================= RESPONSIVE ================= */
+/* THIS IS RESPONSIVE  */
 @media(max-width: 992px) {
   .cards {
     gap: 20px;
@@ -257,7 +257,7 @@ footer {
   }
 }
 
-/* ================= ANIMATION ================= */
+/*THIS IS ANIMATION  */
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(20px);}
   100% { opacity: 1; transform: translateY(0);}

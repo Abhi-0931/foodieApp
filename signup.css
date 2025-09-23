@@ -1,4 +1,4 @@
-/* RESET & GLOBAL STYLES */
+/*THIS IS  GLOBAL STYLES */
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +17,7 @@ a {
 }
 
 
-/* HEADER */
+/*THIS IS HEADER */
 header {
     width: 100%;
     background: #fff;
@@ -85,7 +85,7 @@ header {
     padding: 2px 6px;
 }
 
-/* Signup Section */
+/* THIS IS Signup Section */
 .signup-section {
   display: flex;
   justify-content: center;
@@ -138,7 +138,7 @@ header {
   border-color: #ff4d4d;
 }
 
-/* Button */
+/*THIS IS Button */
 .btn {
   background: #ff4d4d;
   color: #fff;
@@ -155,7 +155,7 @@ header {
   background: #e63946;
 }
 
-/* Signin Link */
+/*THIS IS Signin Link */
 .signin-link {
   margin-top: 1.2rem;
   font-size: 0.9rem;
@@ -169,7 +169,7 @@ header {
   text-decoration: underline;
 }
 
-/* Footer */
+/*THIS IS Footer */
 footer {
 
 

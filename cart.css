@@ -1,7 +1,7 @@
-/* GOOGLE FONT */
+/*THIS IS GOOGLE FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-/* VARIABLES */
+/*THIS IS VARIABLES */
 :root {
   --gold: #f2bd12;
   --dark: #212121;
@@ -12,7 +12,7 @@
   --accent: #ff6b35;
 }
 
-/* RESET */
+/* THIS IS RESET */
 * {
   margin: 0;
   padding: 0;
@@ -26,7 +26,7 @@ body {
   line-height: 1.6;
 }
 
-/* HEADER */
+/*THIS IS HEADER */
 header {
   background: #ffb347;
   padding: 15px 40px;
@@ -116,7 +116,7 @@ header {
   color: var(--dark);
 }
 
-/* CART SECTION */
+/*THIS IS CART SECTION */
 .cart-section {
   max-width: 900px;
   margin: 40px auto;
@@ -214,7 +214,7 @@ header {
   color: var(--dark);
 }
 
-/* FOOTER */
+/*THIS IS FOOTER */
 footer {
   background: var(--dark);
   color: var(--light);
@@ -234,7 +234,267 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* RESPONSIVE */
+
+
+
+
+
+
+/* ===== DELIVERY BOX ===== */
+.delivery-box {
+  background: var(--light);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+  margin-top: 20px;
+}
+
+.delivery-box h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.delivery-box select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  cursor: pointer;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.delivery-box select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 5px var(--gold);
+}
+
+/* ===== COUPON BOX ===== */
+.coupon-box {
+  background: var(--light);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+  margin-top: 20px;
+}
+
+.coupon-box h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.coupon-box input {
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: calc(100% - 110px);
+  margin-right: 10px;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.coupon-box input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 5px var(--gold);
+}
+
+.coupon-box button {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: var(--gold);
+  color: var(--dark);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.coupon-box button:hover {
+  background: var(--accent);
+  color: var(--light);
+}
+
+#coupon-message {
+  margin-top: 10px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ===== COUPON MODAL ===== */
+.modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.modal-content {
+  background: var(--light);
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 70%;
+  overflow-y: auto;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 5px 20px var(--shadow);
+}
+
+.modal-content h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: var(--dark);
+}
+
+.coupon-btn {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--gold);
+  color: var(--dark);
+  transition: 0.3s;
+}
+
+.coupon-btn:hover {
+  background: var(--accent);
+  color: var(--light);
+}
+
+.modal-content button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--gold);
+  color: var(--dark);
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.modal-content button:hover {
+  background: var(--accent);
+  color: var(--light);
+}
+
+/* ===== FINAL BILL ===== */
+.final-bill {
+  background: var(--light);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+  margin-top: 20px;
+}
+
+.final-bill p, .final-bill h3 {
+  font-size: 18px;
+  margin: 5px 0;
+  color: var(--dark);
+}
+
+
+
+
+
+/* ===== PAYMENT METHODS ===== */
+.payment-box {
+  background: var(--light);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+  margin-top: 20px;
+}
+
+.payment-box h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.payment-options label {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: border 0.3s ease, background 0.3s ease;
+}
+
+.payment-options input {
+  margin-right: 10px;
+}
+
+.payment-options label:hover {
+  border-color: var(--gold);
+  background: var(--gray);
+}
+
+/* ===== PLACE ORDER BUTTON ===== */
+.place-order-box {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#placeOrderBtn {
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  background: var(--gold);
+  color: var(--dark);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#placeOrderBtn:hover {
+  background: var(--accent);
+  color: var(--light);
+}
+
+
+#sub-methods label {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-right: 8px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: border 0.3s ease, background 0.3s ease;
+}
+
+#sub-methods label:hover {
+  border-color: var(--gold);
+  background: var(--gray);
+}
+
+#sub-methods input {
+  margin-right: 6px;
+}
+
+
+
+/*THIS IS RESPONSIVE */
 @media (max-width: 768px) {
   .navlist {
     display: none;
@@ -267,4 +527,6 @@ footer a:hover {
   .quantity-controls {
     justify-content: flex-start;
   }
+
+
 }

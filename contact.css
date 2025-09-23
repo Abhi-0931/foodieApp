@@ -1,7 +1,7 @@
-/* ================= GOOGLE FONT ================= */
+/* THIS IS GOOGLE FONT  */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* ================= VARIABLES ================= */
+/* THIS IS VARIABLES */
 :root {
   --gold: #f2bd12;
   --dark: #212121;
@@ -12,7 +12,7 @@
   --gradient: linear-gradient(135deg, #f2bd12 0%, #ff6f00 100%);
 }
 
-/* ================= GLOBAL RESET ================= */
+/* THIS IS GLOBAL RESET */
 * {
   margin: 0;
   padding: 0;
@@ -27,7 +27,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ================= HEADER ================= */
+/* THIS IS HEADER  */
 header {
   background: var(--gradient);
   padding: 15px 40px;
@@ -115,7 +115,7 @@ header {
   cursor: pointer;
 }
 
-/* ================= CONTACT HERO ================= */
+/* THIS IS CONTACT HERO  */
 .contact .text-content {
   text-align: center;
   margin-bottom: 60px;
@@ -141,7 +141,7 @@ header {
   animation: fadeInUp 1.4s ease forwards;
 }
 
-/* ================= CONTACT CONTAINER ================= */
+/* THIS IS CONTACT CONTAINER  */
 .contact-container {
   display: flex;
   flex-wrap: wrap;
@@ -149,7 +149,7 @@ header {
   justify-content: space-between;
 }
 
-/* ================= CONTACT INFO ================= */
+/* THIS IS CONTACT INFO */
 .contact-info {
   flex: 1;
   min-width: 280px;
@@ -207,7 +207,7 @@ header {
   transform: scale(1.2);
 }
 
-/* ================= CONTACT FORM ================= */
+/*THIS IS CONTACT FORM  */
 .contact-form {
   flex: 2;
   min-width: 300px;
@@ -264,7 +264,7 @@ header {
   transform: scale(1.05);
 }
 
-/* ================= FAQ ================= */
+/* THIS IS FAQ  */
 .faq {
   padding: 80px 50px;
   background: var(--light);
@@ -325,7 +325,7 @@ header {
   display: block;
 }
 
-/* ================= MAP ================= */
+/* THIS IS MAP  */
 .map {
   padding: 80px 50px;
   background: var(--gray);
@@ -338,7 +338,7 @@ header {
   box-shadow: 0 10px 25px var(--shadow);
 }
 
-/* ================= FOOTER ================= */
+/* THIS IS FOOTER  */
 footer {
   background: var(--dark);
   padding: 20px;
@@ -356,7 +356,7 @@ footer p a:hover {
   text-decoration: underline;
 }
 
-/* ================= RESPONSIVE ================= */
+/* THIS IS RESPONSIVE  */
 @media (max-width: 992px) {
   .contact-container {
     flex-direction: column;
@@ -375,7 +375,7 @@ footer p a:hover {
   }
 }
 
-/* ================= ANIMATION ================= */
+/* THIS IS ANIMATION  */
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(20px);}
   100% { opacity: 1; transform: translateY(0);}
