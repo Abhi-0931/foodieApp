@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta c harset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- <p id="demo"></p>
+
+    <h1>My WEB PAGE</h1>
+
+    <button type="button" onclick="myFunction()">try it</button> -->
+    <script>
+
+        // function reverse() {
+        //     var r = prompt("ente the number");
+        //     var t = r.split('').reverse().join('');
+        //     document.write(t);
+
+
+
+
+        // function uppercase(str) {
+        //     var array1 = str.split(' ');
+        //     var newarray1 = [];
+        //     for (var x = 0; x < array1.length; x++) {
+        //         newarray1.push(array1[x].charAt(0).toUpperCase() + array1[x].slice(1))
+        //             ;
+        //     }
+        //     return newarray1.join(' ');
+        // }
+        // document.write(uppercase("the end of book"));
+
+        // var today = new Date();
+        // var dd = today.getDate();
+
+        // var mm = today.getMonth() + 1;
+        // var yyyy = today.getFullYear();
+        // if (dd < 10) {
+        //     dd = '0' + dd;
+        // }
+
+        // if (mm < 10) {
+        //     mm = '0' + mm;
+        // }
+        // today = mm + '-' + dd + '-' + yyyy;
+        // document.write(today);
+        // today = mm + '/' + dd + '/' + yyyy;
+        // document.write(today);
+        // today = dd + '-' + mm + '-' + yyyy;
+        // document.write(today);
+        // today = dd + '/' + mm + '/' + yyyy;
+        // document.write(today);
+
+        // function myFunction(){
+        //     document.getElementById("demo").innerHTML="Paragraph changes";
+
+        // }
+
+        // const cart = [
+        //     { name: "shirt", price: 50 },
+        //     { name: "shoes", price: 40 },
+        //     { name: "jeans", price: 60 }
+        // ];
+
+        // function shopping(cart) {
+        //     let total = 0;
+        //     for (let item of cart) {
+        //         total = total + item.price;
+        //     }
+        //     return total;
+        // }
+
+        // console.log("Total:", shopping(cart));
+
+        function validateLogin(username, password) {
+            if (username === "" && password === "") {
+                return "Fields cannot be empty";
+            } else if (password.length < 6) {
+                return "Password must be at least 6 characters";
+            } else {
+                return "Login successful";
+            }
+        }
+
+        console.log(validateLogin("abhi", "12345")); 
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
