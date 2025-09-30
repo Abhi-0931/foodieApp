@@ -9,6 +9,19 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
+
+    <script>
+  // Save last page visited
+  localStorage.setItem("foodie_last_page", window.location.pathname);
+
+  // Check if user is logged in
+  const currentUser = JSON.parse(localStorage.getItem("foodie_current_user"));
+  if (!currentUser) {
+    // Not logged in → send them to sign in
+    window.location.href = "sign.html";
+  }
+</script>
+
 </head>
 
 <body>

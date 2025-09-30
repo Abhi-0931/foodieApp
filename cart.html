@@ -65,14 +65,16 @@
   </section>
 
   <!-- Coupon Modal -->
-  <div id="couponModal" class="modal">
-    <div class="modal-content">
-      <h3>Available Coupons</h3>
-      <div id="coupon-list"></div>
-      <button onclick="openCouponModal()">Show Coupons</button>
+<div id="couponModal" class="modal">
+  <div class="modal-content">
+    <!-- ❌ Close Button -->
+    <span class="close-btn" onclick="closeCouponModal()">×</span>
 
-    </div>
+    <h3>Available Coupons</h3>
+    <div id="coupon-list"></div>
   </div>
+</div>
+
 
  <!-- PAYMENT METHODS -->
 <div class="payment-box">
@@ -106,256 +108,202 @@
     <p>© 2025 Foodie. All rights reserved.</p>
   </footer>
 
-  <!-- SCRIPT -->
   <script>
-    // -------- CART FUNCTIONS --------
-    function updateCartValue() {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      let cartValue = document.querySelector(".cart-value");
-      if (cartValue) {
-        let count = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartValue.textContent = count;
-      }
-    }
+const deliveryCharge = 50; // default delivery fee
+let appliedCoupon = null;
 
-    function renderCart() {
-      const cartItems = document.getElementById("cart-items");
-      const cartTotal = document.getElementById("cart-total");
+// -------- CART FUNCTIONS --------
+function fetchCart() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  renderCart(cart);
+}
 
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cartItems.innerHTML = "";
+function renderCart(cart) {
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
 
-      if (cart.length === 0) {
-        cartItems.innerHTML = "<p>Your cart is empty.</p>";
-        cartTotal.textContent = "";
-        updateCartValue();
-        updateFinalBill();
-        return;
-      }
-
-      let total = 0;
-      cart.forEach((item, index) => {
-        total += item.price * item.quantity;
-        cartItems.innerHTML += `
-          <div class="cart-item">
-            <img src="${item.img}" alt="${item.name}">
-            <div class="details">
-              <h4>${item.name}</h4>
-              <p>$${item.price} × <span class="quantity">${item.quantity}</span></p>
-              <div class="quantity-controls">
-                <button onclick="decreaseQuantity(${index})">-</button>
-                <button onclick="increaseQuantity(${index})">+</button>
-              </div>
-            </div>
-            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
-          </div>
-        `;
-      });
-
-      cartTotal.textContent = "Total: $" + total.toFixed(2);
-      updateCartValue();
-      updateFinalBill();
-    }
-
-    function increaseQuantity(index) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart[index].quantity += 1;
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart();
-    }
-
-    function decreaseQuantity(index) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      if (cart[index].quantity > 1) {
-        cart[index].quantity -= 1;
-      } else {
-        cart.splice(index, 1);
-      }
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart();
-    }
-
-    function removeItem(index) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart();
-    }
-
-    // -------- DELIVERY ADDRESS --------
-    function loadAddresses() {
-      let savedAddresses = JSON.parse(localStorage.getItem("addresses")) || [
-        "🏠 Home - Kurnool, Andhra Pradesh",
-        "🏢 Office - Hyderabad"
-      ];
-
-      const addressSelect = document.getElementById("address");
-      addressSelect.innerHTML = "";
-
-      savedAddresses.forEach(addr => {
-        let option = document.createElement("option");
-        option.value = addr;
-        option.textContent = addr;
-        addressSelect.appendChild(option);
-      });
-
-      let newOption = document.createElement("option");
-      newOption.value = "new";
-      newOption.textContent = "➕ Add New Address";
-      addressSelect.appendChild(newOption);
-    }
-
-    function checkNewAddress(select) {
-      if (select.value === "new") {
-        let newAddr = prompt("Enter your new address:");
-        if (newAddr && newAddr.trim() !== "") {
-          let savedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
-          savedAddresses.push(newAddr);
-          localStorage.setItem("addresses", JSON.stringify(savedAddresses));
-          loadAddresses();
-          document.getElementById("address").value = newAddr;
-        } else {
-          select.value = "";
-        }
-      }
-    }
-
-    // -------- COUPONS --------
-    const availableCoupons = [
-      { code: "FOODIE10", discount: 0.1, type: "percent", description: "Get 10% OFF" },
-      { code: "SAVE50", discount: 50, type: "flat", description: "Flat $50 OFF" },
-      { code: "FREESHIP", discount: 50, type: "delivery", description: "Free Delivery" }
-    ];
-
-    let appliedDiscount = 0;
-    let deliveryCharge = 50;
-    let appliedCoupon = null;
-
-    function openCouponModal() {
-      const couponList = document.getElementById("coupon-list");
-      couponList.innerHTML = "";
-      availableCoupons.forEach(c => {
-        let btn = document.createElement("button");
-        btn.className = "coupon-btn";
-        btn.textContent = `${c.code} - ${c.description}`;
-        btn.onclick = () => applyCouponFromList(c);
-        couponList.appendChild(btn);
-      });
-      document.getElementById("couponModal").style.display = "flex";
-    }
-
-    function closeCouponModal() {
-      document.getElementById("couponModal").style.display = "none";
-    }
-
-    function applyCouponFromList(coupon) {
-      appliedCoupon = coupon;
-      document.getElementById("coupon").value = coupon.code;
-      document.getElementById("coupon-message").textContent = "✅ Applied: " + coupon.code;
-      updateFinalBill();
-      closeCouponModal();
-    }
-
-    function applyCoupon() {
-      let code = document.getElementById("coupon").value.trim().toUpperCase();
-      let found = availableCoupons.find(c => c.code === code);
-
-      if (found) {
-        appliedCoupon = found;
-        document.getElementById("coupon-message").textContent = "✅ Applied: " + code;
-      } else {
-        appliedCoupon = null;
-        document.getElementById("coupon-message").textContent = "❌ Invalid coupon.";
-      }
-      updateFinalBill();
-    }
-
-    function updateFinalBill() {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-      let discountValue = 0;
-      let delivery = cart.length > 0 ? deliveryCharge : 0;
-
-      if (appliedCoupon) {
-        if (appliedCoupon.type === "percent") {
-          discountValue = subtotal * appliedCoupon.discount;
-        } else if (appliedCoupon.type === "flat") {
-          discountValue = appliedCoupon.discount;
-        } else if (appliedCoupon.type === "delivery") {
-          delivery = 0;
-        }
-      }
-
-      let finalTotal = subtotal - discountValue + delivery;
-
-      document.getElementById("subtotal").textContent = "Subtotal: $" + subtotal.toFixed(2);
-      document.getElementById("delivery-charge").textContent = "Delivery: $" + delivery.toFixed(2);
-      document.getElementById("discount").textContent = "Discount: $" + discountValue.toFixed(2);
-      document.getElementById("final-total").textContent = "Final Total: $" + finalTotal.toFixed(2);
-    }
-
-    // -------- INIT --------
-    document.addEventListener("DOMContentLoaded", () => {
-      renderCart();
-      loadAddresses();
-    });
-
-    // -------- PLACE ORDER --------
-    document.getElementById("placeOrderBtn").addEventListener("click", () => {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if(cart.length === 0) {
-    alert("Your cart is empty!");
+  cartItems.innerHTML = "";
+  if (!cart || cart.length === 0) {
+    cartItems.innerHTML = "<p>Your cart is empty.</p>";
+    cartTotal.textContent = "";
+    document.querySelector(".cart-value").textContent = 0;
+    updateFinalBill([]);
     return;
   }
 
-  let paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-  let subPaymentMethod = document.querySelector('input[name="subPayment"]:checked')?.value || "N/A";
-  let finalTotal = document.getElementById("final-total").textContent;
+  let subtotal = 0;
+  cart.forEach((item, index) => {
+    subtotal += item.price * item.quantity;
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${item.name}">
+        <div class="details">
+          <h4>${item.name}</h4>
+          <p>$${item.price} × <span class="quantity">${item.quantity}</span></p>
+          <div class="quantity-controls">
+            <button onclick="updateQuantity(${index}, 'decrease')">-</button>
+            <button onclick="updateQuantity(${index}, 'increase')">+</button>
+          </div>
+        </div>
+        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+      </div>
+    `;
+  });
 
-  alert(`Order Placed!\nPayment Method: ${paymentMethod}\nSub-Method: ${subPaymentMethod}\n${finalTotal}`);
-
-  // Clear cart and reset
-  localStorage.removeItem("cart");
-  renderCart();
-  document.getElementById("coupon").value = "";
-  document.getElementById("coupon-message").textContent = "";
-  appliedCoupon = null;
-  updateFinalBill();
-  showSubMethods(paymentMethod); // reset sub-method
-});
-
-// -------- SUB PAYMENT METHODS --------
-function showSubMethods(method) {
-  const subMethods = document.getElementById("sub-methods");
-  subMethods.innerHTML = ""; // clear previous options
-
-  if (method === "upi") {
-    const upiApps = ["Google Pay", "PhonePe", "Paytm", "BHIM"];
-    upiApps.forEach(app => {
-      const label = document.createElement("label");
-      label.innerHTML = `<input type="radio" name="subPayment" value="${app}" checked> ${app}`;
-      subMethods.appendChild(label);
-    });
-  } else if (method === "card") {
-    const cards = ["Visa", "Mastercard", "Amex"];
-    cards.forEach(card => {
-      const label = document.createElement("label");
-      label.innerHTML = `<input type="radio" name="subPayment" value="${card}" checked> ${card}`;
-      subMethods.appendChild(label);
-    });
-  } 
-  // COD has no sub-methods
+  cartTotal.textContent = "Total: $" + subtotal.toFixed(2);
+  document.querySelector(".cart-value").textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
+  updateFinalBill(cart);
 }
 
-// Call initially to show card options by default
+// -------- QUANTITY --------
+function updateQuantity(index, action) {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (action === "increase") cart[index].quantity += 1;
+  if (action === "decrease" && cart[index].quantity > 1) cart[index].quantity -= 1;
+  localStorage.setItem("cart", JSON.stringify(cart));
+  fetchCart();
+}
+
+// -------- REMOVE ITEM --------
+function removeItem(index) {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  fetchCart();
+}
+
+// -------- FINAL BILL --------
+function updateFinalBill(cart) {
+  let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  let discountValue = 0;
+  let delivery = cart.length > 0 ? deliveryCharge : 0;
+
+  if (appliedCoupon) {
+    if (appliedCoupon.type === "percent") discountValue = subtotal * appliedCoupon.discount;
+    else if (appliedCoupon.type === "flat") discountValue = appliedCoupon.discount;
+    else if (appliedCoupon.type === "delivery") delivery = 0;
+  }
+
+  const finalTotal = subtotal - discountValue + delivery;
+
+  document.getElementById("subtotal").textContent = "Subtotal: $" + subtotal.toFixed(2);
+  document.getElementById("delivery-charge").textContent = "Delivery: $" + delivery.toFixed(2);
+  document.getElementById("discount").textContent = "Discount: $" + discountValue.toFixed(2);
+  document.getElementById("final-total").textContent = "Final Total: $" + finalTotal.toFixed(2);
+}
+
+// -------- COUPONS --------
+const availableCoupons = [
+  { code: "FOODIE10", discount: 0.1, type: "percent", description: "Get 10% OFF" },
+  { code: "SAVE50", discount: 50, type: "flat", description: "Flat $50 OFF" },
+  { code: "FREESHIP", discount: 50, type: "delivery", description: "Free Delivery" }
+];
+
+function openCouponModal() {
+  document.getElementById("couponModal").style.display = "block";
+  const list = document.getElementById("coupon-list");
+  list.innerHTML = "";
+  availableCoupons.forEach(c => {
+    const btn = document.createElement("button");
+    btn.textContent = `${c.code} - ${c.description}`;
+    btn.onclick = () => { appliedCoupon = c; updateFinalBill(JSON.parse(localStorage.getItem("cart")) || []); closeCouponModal(); };
+    list.appendChild(btn);
+  });
+}
+
+function closeCouponModal() { document.getElementById("couponModal").style.display = "none"; }
+
+function applyCoupon() {
+  const code = document.getElementById("coupon").value.trim();
+  const coupon = availableCoupons.find(c => c.code === code);
+  if (coupon) {
+    appliedCoupon = coupon;
+    updateFinalBill(JSON.parse(localStorage.getItem("cart")) || []);
+    document.getElementById("coupon-message").textContent = "Coupon applied!";
+  } else {
+    document.getElementById("coupon-message").textContent = "Invalid coupon!";
+  }
+}
+
+// -------- PLACE ORDER (simulated) --------
+document.getElementById("placeOrderBtn").addEventListener("click", placeOrder);
+
+async function placeOrder() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (cart.length === 0) return alert("Cart is empty!");
+
+  const address = document.getElementById("address").value;
+  if (!address) return alert("Select delivery address.");
+
+  const user = JSON.parse(localStorage.getItem("foodie_current_user"));
+  if (!user) return alert("Please login first!");
+
+  // Prepare DTO for backend
+  const orderData = {
+    userId: user.id,
+    deliveryAddress: address,
+    couponCode: appliedCoupon?.code || null,
+    paymentMethod: document.querySelector('input[name="payment"]:checked').value,
+    items: cart.map(item => ({
+      productId: item.id, // make sure cart items have product id
+      quantity: item.quantity
+    }))
+  };
+
+  try {
+    const res = await fetch("http://localhost:8080/orders/place", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderData)
+    });
+
+    if (!res.ok) throw new Error("Failed to place order");
+
+    const data = await res.json();
+    alert("Order placed successfully! Order ID: " + data.id);
+
+    // Clear cart
+    localStorage.removeItem("cart");
+    fetchCart();
+
+  } catch (err) {
+    console.error(err);
+    alert("Failed to place order. Try again.");
+  }
+}
+
+
+function loadAddresses() {
+  const addressSelect = document.getElementById("address");
+
+  // Example hardcoded addresses
+  const addresses = [
+    "123 Main Street, Kurnool",
+    "456 Park Avenue, New York",
+    "789 Lake Road, Chicago"
+  ];
+
+  addressSelect.innerHTML = '<option value="">Select Address</option>';
+  addresses.forEach(addr => {
+    const option = document.createElement("option");
+    option.value = addr;
+    option.textContent = addr;
+    addressSelect.appendChild(option);
+  });
+}
+
+
+// Call it on page load
 document.addEventListener("DOMContentLoaded", () => {
-  showSubMethods("card");
+  loadAddresses();
+  fetchCart();
 });
 
+</script>
 
 
-  </script>
+ 
+ 
 </body>
 
 </html>

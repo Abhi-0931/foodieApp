@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,196 +8,156 @@
   <link rel="stylesheet" href="menu.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
+
 <body>
 
-<!--THIS IS HEADER -->
-<header>
-  <nav class="navbar">
-    <a href="index.html" class="logo">Foodie.</a>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Foodie.</a>
+      <ul class="navlist">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="about.html">About us</a></li>
+        <li><a href="contact.html">Contact us</a></li>
+      </ul>
+      <div class="desktop-action">
+        <a href="cart.html" class="cart-icon">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-value">0</span>
+        </a>
+        <a href="sign.html" class="btn">Sign in <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        <a href="#" class="hamburger"><i class="fa-solid fa-bars"></i></a>
+      </div>
+    </nav>
+  </header>
 
-    <!--THIS IS Desktop Menu -->
-    <ul class="navlist">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="menu.html" class="active">Menu</a></li>
-      <li><a href="service.html">Services</a></li>
-      <li><a href="about.html">About us</a></li>
-      <li><a href="contact.html">Contact us</a></li>
-    </ul>
-
-    <div class="desktop-action">
-      <a href="cart.html" class="cart-icon">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span class="cart-value">0</span>
-      </a>
-      <a href="sign.html" class="btn">Sign in <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-      <a href="#" class="hamburger"><i class="fa-solid fa-bars"></i></a>
+  <!-- MENU SECTION -->
+  <section class="section menu-section">
+    <div class="text-content">
+      <h3>Our Menu</h3>
+      <h2>Delicious Dishes to Satisfy Your Taste</h2>
+      <p>Explore our wide range of delicious dishes crafted with fresh ingredients and served with love.</p>
     </div>
-  </nav>
-</header>
 
-<!--THIS IS MENU SECTION -->
- 
-<section class="section menu-section">
-  <div class="text-content">
-    <h3>Our Menu</h3>
-    <h2>Delicious Dishes to Satisfy Your Taste</h2>
-    <p>Explore our wide range of delicious dishes crafted with fresh ingredients and served with love.</p>
-  </div>
+    <!-- Container for menu categories -->
+    <div id="menu-container">
 
-  <!--THIS IS Starters -->
-  <div class="menu-category">
-    <h3>Starters</h3>
-    <div class="cards">
-      <div class="card">
-        <img src="asset/Bruschetta.jpg" alt="Bruschetta">
-        <h4>Bruschetta</h4>
-        <p>Toasted bread topped with fresh tomatoes, basil, and olive oil.</p>
-        <p class="price">$50</p>
-        <button class="btn add-to-cart" data-name="Bruschetta" data-price="50">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Garlic Bread.jpg" alt="Garlic Bread">
-        <h4>Garlic Bread</h4>
-        <p>Golden-baked bread with garlic butter and herbs.</p>
-        <p class="price">$40</p>
-        <button class="btn add-to-cart" data-name="Garlic Bread" data-price="40">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Veg Spring Rolls.jpg" alt="Spring Rolls">
-        <h4>Veg Spring Rolls</h4>
-        <p>Crispy rolls filled with fresh vegetables and sweet chili sauce.</p>
-        <p class="price">$60</p>
-        <button class="btn add-to-cart" data-name="Veg Spring Rolls" data-price="60">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Veg Spring Rolls.jpg" alt="Spring Rolls">
-        <h4>Veg Spring Rolls</h4>
-        <p>Crispy rolls filled with fresh vegetables and sweet chili sauce.</p>
-        <p class="price">$60</p>
-        <button class="btn add-to-cart" data-name="Veg Spring Rolls" data-price="60">Add to Cart</button>
-      </div>
-       <div class="card">
-        <img src="asset/Veg Spring Rolls.jpg" alt="Spring Rolls">
-        <h4>Veg Spring Rolls</h4>
-        <p>Crispy rolls filled with fresh vegetables and sweet chili sauce.</p>
-        <p class="price">$60</p>
-        <button class="btn add-to-cart" data-name="Veg Spring Rolls" data-price="60">Add to Cart</button>
-      </div>
-       <div class="card">
-        <img src="asset/Veg Spring Rolls.jpg" alt="Spring Rolls">
-        <h4>Veg Spring Rolls</h4>
-        <p>Crispy rolls filled with fresh vegetables and sweet chili sauce.</p>
-        <p class="price">$60</p>
-        <button class="btn add-to-cart" data-name="Veg Spring Rolls" data-price="60">Add to Cart</button>
-      </div>
-      
+
     </div>
-  </div>
+  </section>
 
-  <!--THIS IS Main Course -->
-  <div class="menu-category">
-    <h3>Main Course</h3>
-    <div class="cards">
-      <div class="card">
-        <img src="asset/Pizza Margherita.jpg" alt="Pizza">
-        <h4>Pizza Margherita</h4>
-        <p>Classic Italian pizza with fresh tomatoes, basil, and mozzarella cheese.</p>
-        <p class="price">$120</p>
-        <button class="btn add-to-cart" data-name="Pizza Margherita" data-price="120">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Grilled Beef Burger.webp" alt="Burger">
-        <h4>Grilled Beef Burger</h4>
-        <p>Juicy beef patty with lettuce, tomato, cheese, and house sauce.</p>
-        <p class="price">$150</p>
-        <button class="btn add-to-cart" data-name="Grilled Beef Burger" data-price="150">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Pasta Alfredo.webp" alt="Pasta">
-        <h4>Pasta Alfredo</h4>
-        <p>Creamy fettuccine pasta with parmesan and herbs.</p>
-        <p class="price">$100</p>
-        <button class="btn add-to-cart" data-name="Pasta Alfredo" data-price="100">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Grilled Chicken.jpg" alt="Grilled Chicken">
-        <h4>Grilled Chicken</h4>
-        <p>Marinated chicken grilled with rosemary and lemon.</p>
-        <p class="price">$140</p>
-        <button class="btn add-to-cart" data-name="Grilled Chicken" data-price="140">Add to Cart</button>
-      </div>
-      
-    </div>
-  </div>
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Foodie. All Rights Reserved.</p>
+  </footer>
 
-  <!--THIS IS Desserts -->
-  <div class="menu-category">
-    <h3>Desserts</h3>
-    <div class="cards">
-      <div class="card">
-        <img src="asset/Chocolate Cake.jpg" alt="Chocolate Cake">
-        <h4>Chocolate Cake</h4>
-        <p>Rich and moist chocolate cake topped with creamy frosting.</p>
-        <p class="price">$70</p>
-        <button class="btn add-to-cart" data-name="Chocolate Cake" data-price="70">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Ice Cream.jpg" alt="Ice Cream">
-        <h4>Vanilla Ice Cream</h4>
-        <p>Creamy vanilla ice cream served with chocolate syrup.</p>
-        <p class="price">$50</p>
-        <button class="btn add-to-cart" data-name="Vanilla Ice Cream" data-price="50">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Cheesecake.jpg" alt="Cheesecake">
-        <h4>Blueberry Cheesecake</h4>
-        <p>Classic cheesecake topped with fresh blueberry sauce.</p>
-        <p class="price">$90</p>
-        <button class="btn add-to-cart" data-name="Blueberry Cheesecake" data-price="90">Add to Cart</button>
-      </div>
-    </div>
-  </div>
+  <script>
+    // -------- LOAD MENU FROM BACKEND --------
+    async function loadMenu() {
+      try {
+        const response = await fetch("http://localhost:8080/api/products"); // backend API
+        const products = await response.json();
 
-  <!--THIS IS Beverages -->
-  <div class="menu-category">
-    <h3>Beverages</h3>
-    <div class="cards">
-      <div class="card">
-        <img src="asset/Coffee.jpg" alt="Coffee">
-        <h4>Espresso Coffee</h4>
-        <p>Freshly brewed strong coffee to energize your day.</p>
-        <p class="price">$30</p>
-        <button class="btn add-to-cart" data-name="Espresso Coffee" data-price="30">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Mango Smoothie.jpg" alt="Smoothie">
-        <h4>Mango Smoothie</h4>
-        <p>Refreshing mango smoothie made with fresh fruits.</p>
-        <p class="price">$60</p>
-        <button class="btn add-to-cart" data-name="Mango Smoothie" data-price="60">Add to Cart</button>
-      </div>
-      <div class="card">
-        <img src="asset/Mojito.jpg" alt="Mocktail">
-        <h4>Virgin Mojito</h4>
-        <p>Minty and refreshing non-alcoholic cocktail.</p>
-        <p class="price">$80</p>
-        <button class="btn add-to-cart" data-name="Virgin Mojito" data-price="80">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-</section>
+        const container = document.getElementById("menu-container");
+        container.innerHTML = ""; // clear previous content
 
-<!--THIS IS FOOTER -->
-<footer>
-  <p>&copy; 2025 Foodie. All Rights Reserved.</p>
-</footer>
+        // Group by category
+        const categories = {};
+        products.forEach(p => {
+          if (!categories[p.category]) categories[p.category] = [];
+          categories[p.category].push(p);
+        });
+
+        // Render each category
+        for (const [category, items] of Object.entries(categories)) {
+          const categoryDiv = document.createElement("div");
+          categoryDiv.classList.add("menu-category");
+          categoryDiv.innerHTML = `<h3>${category}</h3><div class="cards"></div>`;
+          const cardsDiv = categoryDiv.querySelector(".cards");
+
+          items.forEach(item => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+    <img src="asset/${item.image}" alt="${item.name}">
+    <h4>${item.name}</h4>
+    <p>${item.description}</p>
+    <p class="price">$${item.price}</p>
+    <button class="btn add-to-cart" 
+      data-id="${item.id}" 
+      data-name="${item.name}" 
+      data-price="${item.price}" 
+      data-img="asset/${item.image}">
+      Add to Cart
+    </button>
+  `;
+            cardsDiv.appendChild(card);
+          });
 
 
+          container.appendChild(categoryDiv);
+        }
 
-<!--THIS IS CART SCRIPT -->
-<script src="cart.js"></script>
+        // Attach add-to-cart handlers
+        attachAddToCartHandlers();
+
+      } catch (err) {
+        console.error(err);
+        alert("Failed to load menu from backend.");
+      }
+    }
+
+    // -------- ADD TO CART FUNCTIONALITY --------
+    function attachAddToCartHandlers() {
+      document.querySelectorAll(".add-to-cart").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const name = btn.dataset.name;
+          const price = parseFloat(btn.dataset.price);
+          const img = btn.dataset.img;
+
+          const cartKey = "cart"; // key for localStorage
+          let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+          // Check if item already exists
+          const existing = cart.find(item => item.name === name);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({ name, price, img, quantity: 1 });
+          }
+
+          // Save cart
+          localStorage.setItem(cartKey, JSON.stringify(cart));
+
+          // Update cart count in bag
+          const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+          const cartCountElem = document.querySelector(".cart-value");
+          if (cartCountElem) {
+            cartCountElem.textContent = totalCount;
+          }
+
+          alert(`${name} added to cart!`);
+        });
+      });
+    }
+
+    // -------- INITIALIZE --------
+    document.addEventListener("DOMContentLoaded", () => {
+      loadMenu();
+
+      // Initialize cart count in bag
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCountElem = document.querySelector(".cart-value");
+      if (cartCountElem) cartCountElem.textContent = totalCount;
+    });
+  </script>
 
 
+  <script src="cart.js"></script>
 
 </body>
+
 </html>

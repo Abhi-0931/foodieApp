@@ -77,7 +77,50 @@
     <p>&copy; 2025 Foodie Delivery. All Rights Reserved.</p>
   </footer>
 
- <script>
+  <script>
+(function() {
+  const form = document.querySelector(".signup-form");
+  if (!form) return;
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    const newUser = { name, email, password, address: phone, role: "USER" };
+
+    try {
+      const response = await fetch("http://localhost:8080/api/users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUser)
+      });
+
+      const result = await response.text(); // your backend returns a string message
+      alert(result);
+
+      if (result.includes("successful")) {
+        window.location.href = "sign.html"; // redirect to login page
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to connect to backend");
+    }
+  });
+})();
+</script>
+
+
+ <!-- <script>
 (function() {
   const form = document.querySelector(".signup-form");
   if (!form) return;
@@ -143,7 +186,7 @@
     }, 1000);
   });
 })();
-</script>
+</script> -->
 
 
 

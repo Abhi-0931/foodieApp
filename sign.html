@@ -71,8 +71,41 @@
 
 
 <script>
- 
+  (function () {
+    const form = document.querySelector(".signin-form");
+    if (!form) return;
 
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("http://localhost:8080/api/users/signin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }) 
+        });
+
+        const result = await response.text();
+        alert(result);
+
+        if (result.includes("successful")) {
+         
+          localStorage.setItem("foodie_current_user", JSON.stringify({ email }));
+
+          
+          let lastPage = localStorage.getItem("foodie_last_page") || "index.html";
+          window.location.href = lastPage;
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to connect to backend. Make sure Spring Boot is running.");
+      }
+    });
+  })();
 </script>
+
 
 </html>
