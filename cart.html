@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,302 +7,65 @@
   <link rel="stylesheet" href="cart.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <nav class="navbar">
-      <a href="index.html" class="logo">Foodie.</a>
-      <ul class="navlist">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="service.html">Services</a></li>
-        <li><a href="about.html">About us</a></li>
-        <li><a href="contact.html">Contact us</a></li>
-      </ul>
-      <div class="desktop-action">
-        <a href="cart.html" class="cart-icon">
-          <i class="fa-solid fa-bag-shopping"></i>
-          <span class="cart-value">0</span>
-        </a>
-        <a href="sign.html" class="btn">Sign in <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- CART SECTION -->
-  <section class="cart-section">
-    <h2>Your Cart</h2>
-    <div id="cart-items"></div>
-    <h3 id="cart-total"></h3>
-
-    <!-- DELIVERY BOX -->
-    <div class="delivery-box">
-      <h3>Select Delivery Address</h3>
-      <select id="address" onchange="checkNewAddress(this)">
-        <!-- Will load dynamically -->
-      </select>
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">Foodie.</a>
+    <ul class="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="about.html">About us</a></li>
+      <li><a href="contact.html">Contact us</a></li>
+    </ul>
+    <div class="desktop-action">
+      <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-value">0</span>
+      </a>
+      <a href="sign.html" class="btn">Sign in <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     </div>
+  </nav>
+</header>
 
-    <!-- COUPON BOX -->
-    <div class="coupon-box">
-      <h3>Apply Coupon</h3>
-      <button onclick="openCouponModal()">View Available Coupons</button>
-      <input type="text" id="coupon" placeholder="Enter coupon code manually">
-      <button onclick="applyCoupon()">Apply</button>
-      <p id="coupon-message"></p>
-    </div>
+<section class="cart-section">
+  <h2>Your Cart</h2>
+  <div id="cart-items"></div>
 
-    <!-- FINAL BILL -->
-    <div class="final-bill">
-      <p id="subtotal">Subtotal: $0</p>
-      <p id="delivery-charge">Delivery: $0</p>
-      <p id="discount">Discount: $0</p>
-      <h3 id="final-total">Final Total: $0</h3>
-    </div>
-  </section>
-
-  <!-- Coupon Modal -->
-<div id="couponModal" class="modal">
-  <div class="modal-content">
-    <!-- ❌ Close Button -->
-    <span class="close-btn" onclick="closeCouponModal()">×</span>
-
-    <h3>Available Coupons</h3>
-    <div id="coupon-list"></div>
-  </div>
-</div>
-
-
- <!-- PAYMENT METHODS -->
-<div class="payment-box">
-  <h3>Select Payment Method</h3>
-  <div class="payment-options">
-    <label>
-      <input type="radio" name="payment" value="card" checked onchange="showSubMethods(this.value)">
-      💳 Credit/Debit Card
-    </label>
-    <label>
-      <input type="radio" name="payment" value="upi" onchange="showSubMethods(this.value)">
-      🏦 UPI
-    </label>
-    <label>
-      <input type="radio" name="payment" value="cod" onchange="showSubMethods(this.value)">
-      💵 Cash on Delivery
-    </label>
+  <div class="delivery-box">
+    <h3>Select Delivery Address</h3>
+    <select id="address">
+      <option value="">Select Address</option>
+      <option value="123 Main Street, Kurnool">123 Main Street, Kurnool</option>
+      <option value="456 Park Avenue, New York">456 Park Avenue, New York</option>
+      <option value="789 Lake Road, Chicago">789 Lake Road, Chicago</option>
+    </select>
   </div>
 
-  <!-- Sub-methods -->
-  <div id="sub-methods" style="margin-top:10px;"></div>
-</div>
+  <div class="payment-box">
+    <h3>Select Payment Method</h3>
+    <label><input type="radio" name="payment" value="card" checked> 💳 Card</label>
+    <label><input type="radio" name="payment" value="upi"> 🏦 UPI</label>
+    <label><input type="radio" name="payment" value="cod"> 💵 COD</label>
+  </div>
 
-<!-- PLACE ORDER BUTTON -->
-<div class="place-order-box">
-  <button id="placeOrderBtn">Place Order</button>
-</div>
+  <div class="final-bill">
+    <p id="subtotal">Subtotal: $0</p>
+    <p id="delivery-charge">Delivery: $0</p>
+    <p id="discount">Discount: $0</p>
+    <h3 id="final-total">Final Total: $0</h3>
+  </div>
 
+  <div class="place-order-box">
+    <button id="placeOrderBtn">Place Order</button>
+  </div>
+</section>
 
-  <footer>
-    <p>© 2025 Foodie. All rights reserved.</p>
-  </footer>
+<footer>
+  <p>© 2025 Foodie. All rights reserved.</p>
+</footer>
 
-  <script>
-const deliveryCharge = 50; // default delivery fee
-let appliedCoupon = null;
-
-// -------- CART FUNCTIONS --------
-function fetchCart() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  renderCart(cart);
-}
-
-function renderCart(cart) {
-  const cartItems = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
-
-  cartItems.innerHTML = "";
-  if (!cart || cart.length === 0) {
-    cartItems.innerHTML = "<p>Your cart is empty.</p>";
-    cartTotal.textContent = "";
-    document.querySelector(".cart-value").textContent = 0;
-    updateFinalBill([]);
-    return;
-  }
-
-  let subtotal = 0;
-  cart.forEach((item, index) => {
-    subtotal += item.price * item.quantity;
-    cartItems.innerHTML += `
-      <div class="cart-item">
-        <img src="${item.img}" alt="${item.name}">
-        <div class="details">
-          <h4>${item.name}</h4>
-          <p>$${item.price} × <span class="quantity">${item.quantity}</span></p>
-          <div class="quantity-controls">
-            <button onclick="updateQuantity(${index}, 'decrease')">-</button>
-            <button onclick="updateQuantity(${index}, 'increase')">+</button>
-          </div>
-        </div>
-        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
-      </div>
-    `;
-  });
-
-  cartTotal.textContent = "Total: $" + subtotal.toFixed(2);
-  document.querySelector(".cart-value").textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
-  updateFinalBill(cart);
-}
-
-// -------- QUANTITY --------
-function updateQuantity(index, action) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (action === "increase") cart[index].quantity += 1;
-  if (action === "decrease" && cart[index].quantity > 1) cart[index].quantity -= 1;
-  localStorage.setItem("cart", JSON.stringify(cart));
-  fetchCart();
-}
-
-// -------- REMOVE ITEM --------
-function removeItem(index) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  fetchCart();
-}
-
-// -------- FINAL BILL --------
-function updateFinalBill(cart) {
-  let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  let discountValue = 0;
-  let delivery = cart.length > 0 ? deliveryCharge : 0;
-
-  if (appliedCoupon) {
-    if (appliedCoupon.type === "percent") discountValue = subtotal * appliedCoupon.discount;
-    else if (appliedCoupon.type === "flat") discountValue = appliedCoupon.discount;
-    else if (appliedCoupon.type === "delivery") delivery = 0;
-  }
-
-  const finalTotal = subtotal - discountValue + delivery;
-
-  document.getElementById("subtotal").textContent = "Subtotal: $" + subtotal.toFixed(2);
-  document.getElementById("delivery-charge").textContent = "Delivery: $" + delivery.toFixed(2);
-  document.getElementById("discount").textContent = "Discount: $" + discountValue.toFixed(2);
-  document.getElementById("final-total").textContent = "Final Total: $" + finalTotal.toFixed(2);
-}
-
-// -------- COUPONS --------
-const availableCoupons = [
-  { code: "FOODIE10", discount: 0.1, type: "percent", description: "Get 10% OFF" },
-  { code: "SAVE50", discount: 50, type: "flat", description: "Flat $50 OFF" },
-  { code: "FREESHIP", discount: 50, type: "delivery", description: "Free Delivery" }
-];
-
-function openCouponModal() {
-  document.getElementById("couponModal").style.display = "block";
-  const list = document.getElementById("coupon-list");
-  list.innerHTML = "";
-  availableCoupons.forEach(c => {
-    const btn = document.createElement("button");
-    btn.textContent = `${c.code} - ${c.description}`;
-    btn.onclick = () => { appliedCoupon = c; updateFinalBill(JSON.parse(localStorage.getItem("cart")) || []); closeCouponModal(); };
-    list.appendChild(btn);
-  });
-}
-
-function closeCouponModal() { document.getElementById("couponModal").style.display = "none"; }
-
-function applyCoupon() {
-  const code = document.getElementById("coupon").value.trim();
-  const coupon = availableCoupons.find(c => c.code === code);
-  if (coupon) {
-    appliedCoupon = coupon;
-    updateFinalBill(JSON.parse(localStorage.getItem("cart")) || []);
-    document.getElementById("coupon-message").textContent = "Coupon applied!";
-  } else {
-    document.getElementById("coupon-message").textContent = "Invalid coupon!";
-  }
-}
-
-// -------- PLACE ORDER (simulated) --------
-document.getElementById("placeOrderBtn").addEventListener("click", placeOrder);
-
-async function placeOrder() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (cart.length === 0) return alert("Cart is empty!");
-
-  const address = document.getElementById("address").value;
-  if (!address) return alert("Select delivery address.");
-
-  const user = JSON.parse(localStorage.getItem("foodie_current_user"));
-  if (!user) return alert("Please login first!");
-
-  // Prepare DTO for backend
-  const orderData = {
-    userId: user.id,
-    deliveryAddress: address,
-    couponCode: appliedCoupon?.code || null,
-    paymentMethod: document.querySelector('input[name="payment"]:checked').value,
-    items: cart.map(item => ({
-      productId: item.id, // make sure cart items have product id
-      quantity: item.quantity
-    }))
-  };
-
-  try {
-    const res = await fetch("http://localhost:8080/orders/place", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderData)
-    });
-
-    if (!res.ok) throw new Error("Failed to place order");
-
-    const data = await res.json();
-    alert("Order placed successfully! Order ID: " + data.id);
-
-    // Clear cart
-    localStorage.removeItem("cart");
-    fetchCart();
-
-  } catch (err) {
-    console.error(err);
-    alert("Failed to place order. Try again.");
-  }
-}
-
-
-function loadAddresses() {
-  const addressSelect = document.getElementById("address");
-
-  // Example hardcoded addresses
-  const addresses = [
-    "123 Main Street, Kurnool",
-    "456 Park Avenue, New York",
-    "789 Lake Road, Chicago"
-  ];
-
-  addressSelect.innerHTML = '<option value="">Select Address</option>';
-  addresses.forEach(addr => {
-    const option = document.createElement("option");
-    option.value = addr;
-    option.textContent = addr;
-    addressSelect.appendChild(option);
-  });
-}
-
-
-// Call it on page load
-document.addEventListener("DOMContentLoaded", () => {
-  loadAddresses();
-  fetchCart();
-});
-
-</script>
-
-
- 
- 
+<script src="cart.js"></script>
 </body>
-
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,156 +7,97 @@
   <link rel="stylesheet" href="menu.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
-
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <nav class="navbar">
-      <a href="index.html" class="logo">Foodie.</a>
-      <ul class="navlist">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="service.html">Services</a></li>
-        <li><a href="about.html">About us</a></li>
-        <li><a href="contact.html">Contact us</a></li>
-      </ul>
-      <div class="desktop-action">
-        <a href="cart.html" class="cart-icon">
-          <i class="fa-solid fa-bag-shopping"></i>
-          <span class="cart-value">0</span>
-        </a>
-        <a href="sign.html" class="btn">Sign in <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-        <a href="#" class="hamburger"><i class="fa-solid fa-bars"></i></a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- MENU SECTION -->
-  <section class="section menu-section">
-    <div class="text-content">
-      <h3>Our Menu</h3>
-      <h2>Delicious Dishes to Satisfy Your Taste</h2>
-      <p>Explore our wide range of delicious dishes crafted with fresh ingredients and served with love.</p>
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">Foodie.</a>
+    <ul class="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="about.html">About us</a></li>
+      <li><a href="contact.html">Contact us</a></li>
+    </ul>
+    <div class="desktop-action">
+      <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-value">0</span>
+      </a>
+      <a href="sign.html" class="btn">Sign in <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+      <a href="#" class="hamburger"><i class="fa-solid fa-bars"></i></a>
     </div>
+  </nav>
+</header>
 
-    <!-- Container for menu categories -->
-    <div id="menu-container">
+<section class="section menu-section">
+  <div class="text-content">
+    <h3>Our Menu</h3>
+    <h2>Delicious Dishes to Satisfy Your Taste</h2>
+    <p>Explore our wide range of delicious dishes crafted with fresh ingredients and served with love.</p>
+  </div>
 
+  <div id="menu-container"></div>
+</section>
 
-    </div>
-  </section>
+<footer>
+  <p>&copy; 2025 Foodie. All Rights Reserved.</p>
+</footer>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 Foodie. All Rights Reserved.</p>
-  </footer>
+<script src="cart.js"></script>
+<script>
+async function loadMenu() {
+  try {
+    const res = await fetch("http://localhost:8080/api/products");
+    const products = await res.json();
 
-  <script>
-    // -------- LOAD MENU FROM BACKEND --------
-    async function loadMenu() {
-      try {
-        const response = await fetch("http://localhost:8080/api/products"); // backend API
-        const products = await response.json();
+    const container = document.getElementById("menu-container");
+    container.innerHTML = "";
 
-        const container = document.getElementById("menu-container");
-        container.innerHTML = ""; // clear previous content
-
-        // Group by category
-        const categories = {};
-        products.forEach(p => {
-          if (!categories[p.category]) categories[p.category] = [];
-          categories[p.category].push(p);
-        });
-
-        // Render each category
-        for (const [category, items] of Object.entries(categories)) {
-          const categoryDiv = document.createElement("div");
-          categoryDiv.classList.add("menu-category");
-          categoryDiv.innerHTML = `<h3>${category}</h3><div class="cards"></div>`;
-          const cardsDiv = categoryDiv.querySelector(".cards");
-
-          items.forEach(item => {
-            const card = document.createElement("div");
-            card.classList.add("card");
-            card.innerHTML = `
-    <img src="asset/${item.image}" alt="${item.name}">
-    <h4>${item.name}</h4>
-    <p>${item.description}</p>
-    <p class="price">$${item.price}</p>
-    <button class="btn add-to-cart" 
-      data-id="${item.id}" 
-      data-name="${item.name}" 
-      data-price="${item.price}" 
-      data-img="asset/${item.image}">
-      Add to Cart
-    </button>
-  `;
-            cardsDiv.appendChild(card);
-          });
-
-
-          container.appendChild(categoryDiv);
-        }
-
-        // Attach add-to-cart handlers
-        attachAddToCartHandlers();
-
-      } catch (err) {
-        console.error(err);
-        alert("Failed to load menu from backend.");
-      }
-    }
-
-    // -------- ADD TO CART FUNCTIONALITY --------
-    function attachAddToCartHandlers() {
-      document.querySelectorAll(".add-to-cart").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const name = btn.dataset.name;
-          const price = parseFloat(btn.dataset.price);
-          const img = btn.dataset.img;
-
-          const cartKey = "cart"; // key for localStorage
-          let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
-
-          // Check if item already exists
-          const existing = cart.find(item => item.name === name);
-          if (existing) {
-            existing.quantity += 1;
-          } else {
-            cart.push({ name, price, img, quantity: 1 });
-          }
-
-          // Save cart
-          localStorage.setItem(cartKey, JSON.stringify(cart));
-
-          // Update cart count in bag
-          const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-          const cartCountElem = document.querySelector(".cart-value");
-          if (cartCountElem) {
-            cartCountElem.textContent = totalCount;
-          }
-
-          alert(`${name} added to cart!`);
-        });
-      });
-    }
-
-    // -------- INITIALIZE --------
-    document.addEventListener("DOMContentLoaded", () => {
-      loadMenu();
-
-      // Initialize cart count in bag
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const cartCountElem = document.querySelector(".cart-value");
-      if (cartCountElem) cartCountElem.textContent = totalCount;
+    const categories = {};
+    products.forEach(p => {
+      if (!categories[p.category]) categories[p.category] = [];
+      categories[p.category].push(p);
     });
-  </script>
 
+    for (const [cat, items] of Object.entries(categories)) {
+      const catDiv = document.createElement("div");
+      catDiv.classList.add("menu-category");
+      catDiv.innerHTML = `<h3>${cat}</h3><div class="cards"></div>`;
+      const cardsDiv = catDiv.querySelector(".cards");
 
-  <script src="cart.js"></script>
+      items.forEach(item => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+          <img src="asset/${item.image}" alt="${item.name}">
+          <h4>${item.name}</h4>
+          <p>${item.description}</p>
+          <p class="price">$${item.price}</p>
+          <button class="btn add-to-cart"
+            data-id="${item.id}"
+            data-name="${item.name}"
+            data-price="${item.price}"
+            data-img="asset/${item.image}">Add to Cart</button>
+        `;
+        cardsDiv.appendChild(card);
+      });
+
+      container.appendChild(catDiv);
+    }
+
+    attachAddToCartHandlers();
+  } catch (err) {
+    console.error(err);
+    alert("Failed to load menu.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadMenu();
+  updateCartValue();
+});
+</script>
 
 </body>
-
 </html>
