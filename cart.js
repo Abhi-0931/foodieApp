@@ -197,10 +197,12 @@ async function placeOrder() {
 
     // user must be logged in and must have id
     const user = JSON.parse(localStorage.getItem("foodie_current_user"));
-    // if (!user || (!user.id && !user.userId)) {
-    //   return alert("Please login first!");
-    // }
-    const userId = user.id ?? user.userId; // support both shapes
+    if (!user || (!user.id && !user.userId)) {
+      return alert("Please login first!");
+    }
+    // const userId = user.id ?? user.userId; 
+
+    const userId = user.id;
 
     if (!cart.length) return alert("Cart is empty!");
 
@@ -229,7 +231,7 @@ async function placeOrder() {
     console.log("Sending order to backend:", orderData);
 
     // NOTE: controller mapping expects /orders/place/{userId}
-    const url = `http://localhost:8080/orders/place/3`;
+   const url = `http://localhost:8080/orders/place/${userId}`;
 
     const res = await fetch(url, {
       method: "POST",

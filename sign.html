@@ -70,7 +70,7 @@
 </body>
 
 
-<script>
+<!-- <script>
   (function () {
     const form = document.querySelector(".signin-form");
     if (!form) return;
@@ -105,7 +105,52 @@
       }
     });
   })();
+</script> -->
+<script>
+  (function () {
+    const form = document.querySelector(".signin-form");
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("http://localhost:8080/api/users/signin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        if (!response.ok) {
+          const errorMsg = await response.text();
+          alert("Login failed: " + errorMsg);
+          return;
+        }
+
+        const user = await response.json(); // backend returns user object with ID
+
+        if (user && user.id) {
+          // Save user info in localStorage
+          localStorage.setItem("foodie_current_user", JSON.stringify(user));
+
+          // Redirect to last visited page or homepage
+          let lastPage = localStorage.getItem("foodie_last_page") || "index.html";
+          window.location.href = lastPage;
+        } else {
+          alert("Login failed: Invalid credentials.");
+        }
+
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to connect to backend. Make sure Spring Boot is running.");
+      }
+    });
+  })();
 </script>
+
 
 
 </html>
