@@ -1,39 +1,59 @@
-// GET cart from localStorage or empty
+// cart.js
+
+// ---------- Storage / state ----------
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// UPDATE cart value in navbar
-function updateCartValue() {
-  const cartValue = document.querySelector(".cart-value");
-  cartValue.textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
+// Utility to persist cart
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// ADD to cart buttons
+// ---------- Navbar cart count ----------
+function updateCartValue() {
+  const cartValueElem = document.querySelector(".cart-value");
+  if (!cartValueElem) return;
+  const total = cart.reduce((sum, i) => sum + (i.quantity || 0), 0);
+  cartValueElem.textContent = total;
+}
+
+// ---------- Add-to-cart handler (used by menu.html) ----------
 function attachAddToCartHandlers() {
   document.querySelectorAll(".add-to-cart").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const id = parseInt(btn.dataset.id);
-      const name = btn.dataset.name;
-      const price = parseFloat(btn.dataset.price);
-      const img = btn.dataset.img;
+    if (btn._attached) return; // avoid double-binding
+    btn._attached = true;
 
-      const existing = cart.find(i => i.id === id);
-      if (existing) existing.quantity++;
+    btn.addEventListener("click", () => {
+      // required dataset attributes
+      const idRaw = btn.dataset.id;
+      const id = idRaw ? (isNaN(idRaw) ? idRaw : Number(idRaw)) : null;
+      const name = btn.dataset.name || "Unknown";
+      const price = parseFloat(btn.dataset.price) || 0;
+      const img = btn.dataset.img || "";
+
+      if (id === null || id === undefined) {
+        console.error("Add-to-cart clicked but button has no data-id:", btn);
+        return alert("Item missing id — can't add to cart. Check console.");
+      }
+
+      // find existing by id
+      const existing = cart.find(x => x.id === id);
+      if (existing) existing.quantity = (existing.quantity || 0) + 1;
       else cart.push({ id, name, price, img, quantity: 1 });
 
-      localStorage.setItem("cart", JSON.stringify(cart));
+      saveCart();
       updateCartValue();
       alert(`${name} added to cart!`);
     });
   });
 }
 
-// CART PAGE FUNCTIONS
+// ---------- Cart page rendering ----------
 function fetchCart() {
   cart = JSON.parse(localStorage.getItem("cart")) || [];
-  renderCart(cart);
+  renderCart();
 }
 
-function renderCart(cart) {
+function renderCart() {
   const cartItems = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
   const subtotalElem = document.getElementById("subtotal");
@@ -41,108 +61,227 @@ function renderCart(cart) {
   const discountElem = document.getElementById("discount");
   const finalElem = document.getElementById("final-total");
 
+  if (!cartItems) return;
+
   cartItems.innerHTML = "";
   if (!cart.length) {
     cartItems.innerHTML = "<p>Your cart is empty.</p>";
-    cartTotal.textContent = "";
+    if (cartTotal) cartTotal.textContent = "";
+    if (subtotalElem) subtotalElem.textContent = "Subtotal: $0";
+    if (deliveryElem) deliveryElem.textContent = "Delivery: $0";
+    if (discountElem) discountElem.textContent = "Discount: $0";
+    if (finalElem) finalElem.textContent = "Final Total: $0";
     updateCartValue();
-    subtotalElem.textContent = "Subtotal: $0";
-    deliveryElem.textContent = "Delivery: $0";
-    discountElem.textContent = "Discount: $0";
-    finalElem.textContent = "Final Total: $0";
     return;
   }
 
   let subtotal = 0;
-  cart.forEach((item, index) => {
-    subtotal += item.price * item.quantity;
-    const div = document.createElement("div");
-    div.classList.add("cart-item");
-    div.innerHTML = `
-      <img src="${item.img}" alt="${item.name}">
+  cart.forEach((item, idx) => {
+    subtotal += (item.price || 0) * (item.quantity || 0);
+
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "cart-item";
+    itemDiv.innerHTML = `
+      <img src="${item.img || ""}" alt="${item.name || ""}">
       <div class="details">
-        <h4>${item.name}</h4>
-        <p>$${item.price} × <span class="quantity">${item.quantity}</span></p>
+        <h4>${item.name || ""}</h4>
+        <p>$${(item.price || 0).toFixed(2)} × <span class="quantity">${item.quantity}</span></p>
         <div class="quantity-controls">
-          <button onclick="updateQuantity(${index}, 'decrease')">-</button>
-          <button onclick="updateQuantity(${index}, 'increase')">+</button>
+          <button data-idx="${idx}" data-action="decrease">-</button>
+          <button data-idx="${idx}" data-action="increase">+</button>
         </div>
       </div>
-      <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+      <button class="remove-btn" data-idx="${idx}">Remove</button>
     `;
-    cartItems.appendChild(div);
+    cartItems.appendChild(itemDiv);
+  });
+
+  // attach quantity / remove handlers (delegation)
+  cartItems.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const i = Number(btn.dataset.idx);
+      const action = btn.dataset.action;
+      if (action === "increase") cart[i].quantity = (cart[i].quantity || 0) + 1;
+      if (action === "decrease" && cart[i].quantity > 1) cart[i].quantity--;
+      saveCart();
+      renderCart();
+      updateCartValue();
+    });
+  });
+  cartItems.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener("click", () => {
+      const i = Number(btn.dataset.idx);
+      cart.splice(i, 1);
+      saveCart();
+      renderCart();
+      updateCartValue();
+    });
   });
 
   const delivery = subtotal > 0 ? 50 : 0;
-  const discount = 0;
+  const discount = 0; // you can compute based on coupon if you want
   const finalTotal = subtotal - discount + delivery;
 
-  subtotalElem.textContent = "Subtotal: $" + subtotal.toFixed(2);
-  deliveryElem.textContent = "Delivery: $" + delivery.toFixed(2);
-  discountElem.textContent = "Discount: $" + discount.toFixed(2);
-  finalElem.textContent = "Final Total: $" + finalTotal.toFixed(2);
+  if (cartTotal) cartTotal.textContent = `Total: $${subtotal.toFixed(2)}`;
+  if (subtotalElem) subtotalElem.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+  if (deliveryElem) deliveryElem.textContent = `Delivery: $${delivery.toFixed(2)}`;
+  if (discountElem) discountElem.textContent = `Discount: $${discount.toFixed(2)}`;
+  if (finalElem) finalElem.textContent = `Final Total: $${finalTotal.toFixed(2)}`;
 
   updateCartValue();
 }
 
-function updateQuantity(index, action) {
-  if (action === "increase") cart[index].quantity++;
-  if (action === "decrease" && cart[index].quantity > 1) cart[index].quantity--;
-  localStorage.setItem("cart", JSON.stringify(cart));
-  fetchCart();
+// ---------- Address helpers (allow typing) ----------
+function loadAddresses() {
+  // If the page uses <select id="address"> we keep it but add "Other" option
+  const addressSelect = document.getElementById("address");
+  if (!addressSelect) return;
+
+  // clear and add "Enter address" + "Other"
+  addressSelect.innerHTML = "";
+  const defaultOpt = document.createElement("option");
+  defaultOpt.value = "";
+  defaultOpt.textContent = "Select or type address";
+  addressSelect.appendChild(defaultOpt);
+
+  const saved = JSON.parse(localStorage.getItem("foodie_addresses")) || [];
+  saved.forEach(addr => {
+    const opt = document.createElement("option");
+    opt.value = addr;
+    opt.textContent = addr;
+    addressSelect.appendChild(opt);
+  });
+
+  const otherOpt = document.createElement("option");
+  otherOpt.value = "other";
+  otherOpt.textContent = "Enter address manually";
+  addressSelect.appendChild(otherOpt);
+
+  // create manual input (hidden initially)
+  if (!document.getElementById("address_manual")) {
+    const manual = document.createElement("input");
+    manual.id = "address_manual";
+    manual.placeholder = "Type your full address here";
+    manual.style.display = "none";
+    manual.style.marginTop = "8px";
+    addressSelect.parentNode.appendChild(manual);
+  }
+
+  addressSelect.addEventListener("change", function () {
+    const manual = document.getElementById("address_manual");
+    if (this.value === "other") {
+      manual.style.display = "block";
+      manual.focus();
+    } else {
+      if (manual) {
+        manual.style.display = "none";
+        manual.value = "";
+      }
+    }
+  });
 }
 
-function removeItem(index) {
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  fetchCart();
+function getAddressValue() {
+  const sel = document.getElementById("address");
+  const manual = document.getElementById("address_manual");
+  if (!sel) return (manual && manual.value) ? manual.value.trim() : "";
+  if (sel.value === "other") return (manual && manual.value) ? manual.value.trim() : "";
+  return sel.value || (manual && manual.value) || "";
 }
 
-// PLACE ORDER
+// ---------- Place order (main) ----------
 async function placeOrder() {
-  const user = JSON.parse(localStorage.getItem("foodie_current_user"));
-  if (!user) return alert("Please login first!");
-
-  const address = document.getElementById("address").value;
-  if (!address) return alert("Select delivery address.");
-
-  if (!cart.length) return alert("Cart is empty!");
-
-  const orderData = {
-    userId: user.id,
-    deliveryAddress: address,
-    couponCode: null,
-    paymentMethod: document.querySelector('input[name="payment"]:checked').value,
-    items: cart.map(i => ({ productId: i.id, quantity: i.quantity }))
-  };
-
   try {
-    const res = await fetch("http://localhost:8080/orders/place", {
+    // current cart from storage
+    cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // user must be logged in and must have id
+    const user = JSON.parse(localStorage.getItem("foodie_current_user"));
+    // if (!user || (!user.id && !user.userId)) {
+    //   return alert("Please login first!");
+    // }
+    const userId = user.id ?? user.userId; // support both shapes
+
+    if (!cart.length) return alert("Cart is empty!");
+
+    const address = getAddressValue();
+    if (!address) return alert("Please select or type delivery address.");
+
+    // ensure every cart item has an id to map to productId
+    for (const it of cart) {
+      if (it.id === undefined || it.id === null) {
+        console.error("Cart item missing id:", it, "Full cart:", cart);
+        return alert("Cart contains item without product id. Please re-add items from menu.");
+      }
+    }
+
+    const items = cart.map(i => ({ productId: Number(i.id), quantity: Number(i.quantity) }));
+
+    const orderData = {
+      // backend controller uses path userId, so we DON'T need to send userId in body, but backend will accept either
+      // userId: userId,
+      deliveryAddress: address,
+      couponCode: null,
+      paymentMethod: document.querySelector('input[name="payment"]:checked')?.value || "cod",
+      items
+    };
+
+    console.log("Sending order to backend:", orderData);
+
+    // NOTE: controller mapping expects /orders/place/{userId}
+    const url = `http://localhost:8080/orders/place/3`;
+
+    const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData)
     });
 
+    // helpful debug output if server replies non-OK
     if (!res.ok) {
-      const text = await res.text();
-      console.error("Backend error:", text);
-      return alert("Failed to place order: " + text);
+      // try to parse JSON message first, fallback to text
+      let bodyText;
+      try {
+        bodyText = await res.text();
+      } catch (e) {
+        bodyText = "Could not read response body";
+      }
+      console.error("Order failed — HTTP", res.status, bodyText);
+      alert("Failed to place order: " + (bodyText || `HTTP ${res.status}`));
+      return;
     }
 
+    // success
     const data = await res.json();
-    alert("Order placed successfully! Order ID: " + data.id);
+    console.log("Order placed OK:", data);
+    alert("Order placed successfully! Order ID: " + (data.id ?? data.orderId ?? "N/A"));
 
+    // clear cart
     cart = [];
-    localStorage.setItem("cart", JSON.stringify(cart));
-    fetchCart();
+    saveCart();
+    renderCart();
+    updateCartValue();
   } catch (err) {
-    console.error(err);
-    alert("Failed to place order. Try again.");
+    console.error("Place order exception:", err);
+    alert("Failed to place order. Check console/network tab for details.");
   }
 }
 
+// ---------- Init on pages ----------
 document.addEventListener("DOMContentLoaded", () => {
-  fetchCart();
+  // If this script is included on menu page, attach handlers and update counter
+  attachAddToCartHandlers();
   updateCartValue();
-  document.getElementById("placeOrderBtn")?.addEventListener("click", placeOrder);
+
+  // If on cart page, render cart and wire place order button
+  fetchCart();
+  loadAddresses(); // prepare select + manual input
+  const placeBtn = document.getElementById("placeOrderBtn");
+  if (placeBtn) placeBtn.addEventListener("click", placeOrder);
 });
+
+// expose some functions globally so menu.html can call them if needed
+window.attachAddToCartHandlers = attachAddToCartHandlers;
+window.updateCartValue = updateCartValue;
+window.fetchCart = fetchCart;
+window.placeOrder = placeOrder;
