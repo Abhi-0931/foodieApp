@@ -23,6 +23,13 @@ function attachAddToCartHandlers() {
     btn._attached = true;
 
     btn.addEventListener("click", () => {
+
+       const user = JSON.parse(localStorage.getItem("foodie_current_user"));
+  if (!user || !user.id) {
+    alert("Please login first to add items to cart!");
+    window.location.href = "sign.html"; // redirect to login page
+    return;
+  }
       // required dataset attributes
       const idRaw = btn.dataset.id;
       const id = idRaw ? (isNaN(idRaw) ? idRaw : Number(idRaw)) : null;
